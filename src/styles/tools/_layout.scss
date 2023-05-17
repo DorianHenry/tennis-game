@@ -1,0 +1,32 @@
+:root {
+  --stack-gap: 3.5rem;
+  --section-py: 3rem;
+  --page-py: 3rem;
+}
+
+%stack {
+  display: grid;
+
+  grid-template-columns: 1fr;
+  align-content: flex-start;
+  gap: var(--stack-gap);
+
+  & > * {
+    min-width: 0;
+  }
+}
+
+.stack-section {
+  @extend %stack;
+  --stack-gap: 3.5rem;
+}
+
+.stack-inner {
+  @extend %stack;
+  --stack-gap: 2.5rem;
+}
+
+.stack-text {
+  @extend %stack;
+  --stack-gap: 1.5rem;
+}
