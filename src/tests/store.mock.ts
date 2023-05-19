@@ -1,4 +1,4 @@
-import { Game } from "../types";
+import { Game, SetScore } from "../types";
 import { GameState } from "../enums";
 
 export const gameTest: Game[] = [
@@ -11,13 +11,39 @@ export const gameTest: Game[] = [
       {
         name: "John",
         hasService: true,
-        sets: [0, 0, 0],
+        sets: [
+          {
+            win: false,
+            point: 0,
+          },
+          {
+            point: 0,
+            win: false,
+          },
+          {
+            point: 0,
+            win: false,
+          },
+        ],
         currentPoint: 0,
       },
       {
         name: "Jason",
         hasService: false,
-        sets: [0, 0, 0],
+        sets: [
+          {
+            win: false,
+            point: 0,
+          },
+          {
+            point: 0,
+            win: false,
+          },
+          {
+            point: 0,
+            win: false,
+          },
+        ],
         currentPoint: 0,
       },
     ],
@@ -31,15 +57,56 @@ export const gameTest: Game[] = [
       {
         name: "Adrien",
         hasService: true,
-        sets: [6, 0, 5],
+        sets: [
+          {
+            win: true,
+            point: 6,
+          },
+          {
+            point: 0,
+            win: false,
+          },
+          {
+            point: 5,
+            win: false,
+          },
+        ],
         currentPoint: 3,
       },
       {
         name: "Vincent",
         hasService: false,
-        sets: [4, 6, 5],
+        sets: [
+          {
+            win: false,
+            point: 4,
+          },
+          {
+            win: true,
+            point: 6,
+          },
+          {
+            win: false,
+            point: 5,
+          },
+        ],
         currentPoint: 0,
       },
     ],
+  },
+];
+
+export const expectedNewSet: SetScore[] = [
+  {
+    win: false,
+    point: 0,
+  },
+  {
+    point: 0,
+    win: false,
+  },
+  {
+    point: 0,
+    win: false,
   },
 ];

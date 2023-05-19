@@ -8,7 +8,9 @@ import {
   getPlayers,
   getRandomId,
   getGameScore,
+  isWinningMatch,
 } from "../functions/games";
+import { GameState } from "../enums";
 
 const initialState: StoreState = {
   gameList: gameTest,
@@ -45,6 +47,10 @@ export const gamesSlice = createSlice({
           `game width id ${action.payload.gameId} does not exist`
         );
       }
+
+      if (game.status === GameState.FINISH) {
+        return;
+      }
       const { winningPlayer, otherPlayer, otherPlayerIndex } = getPlayers(
         action.payload.playerIndex,
         game.players
@@ -72,6 +78,13 @@ export const gamesSlice = createSlice({
         if (!winSet) {
           return g;
         }
+        const winMatch = isWinningMatch(newSet);
+        if (!winMatch) {
+          g.currentSet++;
+          return g;
+        }
+        g.winner = winningPlayer;
+        g.status = GameState.FINISH;
         return g;
       });
     },
@@ -80,6 +93,33 @@ export const gamesSlice = createSlice({
     },
   },
 });
+
+// export function addPointScore(gameId: GameId, playerIndex: number) {
+//         const game = state.gameList.find((g) => g.id === action.payload.gameId);
+//         if (!game) {
+//           throw new Error(
+//             `game width id ${action.payload.gameId} does not exist`
+//           );
+//         }
+//         const { winningPlayer, otherPlayer, otherPlayerIndex } = getPlayers(
+//           action.payload.playerIndex,
+//           game.players
+//         );
+//         const { newWinningScore, newOtherScore, winGame } = getPointScore({
+//           winningPlayer,
+//           otherPlayer,
+//         });
+// }
+
+// export const thunkSendMessage =
+//   (message: string): ThunkAction<void, RootState, unknown, AnyAction> =>
+//   async (dispatch) => {
+//     dispatch(
+//       gamesSlice.actions.addSet({
+//         message,
+//       })
+//     );
+//   };
 
 export const { incerementChrono, addGame, addPoint, replaceAllGames } =
   gamesSlice.actions;

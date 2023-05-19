@@ -2,11 +2,16 @@ export type Point = number;
 
 export type GameId = number;
 
+export type SetScore = {
+  win: boolean;
+  point: number;
+};
+
 export type Player = {
   name: string;
   hasService: boolean;
   currentPoint: Point;
-  sets: [number, number, number];
+  sets: SetScore[];
 };
 
 export type Game = {
@@ -15,6 +20,7 @@ export type Game = {
   status: GameState;
   chrono: number;
   currentSet: number;
+  winner?: Player;
 };
 
 export type Time = {

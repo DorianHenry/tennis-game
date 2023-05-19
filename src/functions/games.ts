@@ -1,5 +1,5 @@
 import { GameState } from "../enums";
-import { Game, Player } from "../types";
+import { Game, Player, SetScore } from "../types";
 import { hasAtLeastTwoDifference } from "./numbers";
 
 type PlayersPlaying = {
@@ -27,20 +27,29 @@ export function getNewGame(player1: string, player2: string, id: number): Game {
     currentSet: 0,
     status: GameState.ONGOING,
     chrono: 0,
-    players: [
+    players: [getNewPlayer(player1), getNewPlayer(player2)],
+  };
+}
+
+export function getNewPlayer(playerName: string): Player {
+  return {
+    name: playerName,
+    hasService: true,
+    sets: [
       {
-        name: player1,
-        hasService: true,
-        sets: [0, 0, 0],
-        currentPoint: 0,
+        win: false,
+        point: 0,
       },
       {
-        name: player2,
-        hasService: false,
-        sets: [0, 0, 0],
-        currentPoint: 0,
+        point: 0,
+        win: false,
+      },
+      {
+        point: 0,
+        win: false,
       },
     ],
+    currentPoint: 0,
   };
 }
 
@@ -111,36 +120,40 @@ export function getGameScore({
   otherPlayer,
   currentSet,
 }: PlayersPlaying & { currentSet: number }): PlayerNewSet {
-  const playerSet = [...winningPlayer.sets] as [number, number, number];
-  const loserSet = [...otherPlayer.sets] as [number, number, number];
+  const playerSet = [...winningPlayer.sets];
+  const loserSet = [...otherPlayer.sets];
   if (!playerSet) {
     throw new Error(`No set in index ${currentSet} found`);
   }
 
-  const currentSetPoint = playerSet[currentSet] + 1;
-  const loserSetPoint = loserSet[currentSet];
-
+  const currentSetPoint = playerSet[currentSet].point + 1;
+  const loserSetPoint = loserSet[currentSet].point;
+  const winnerWinSet = winSet(currentSetPoint, loserSetPoint);
   const newSet = playerSet.map((s, i) => {
     if (i === currentSet) {
-      return currentSetPoint;
+      return { point: currentSetPoint, win: winnerWinSet };
     }
     return s;
-  }) as [number, number, number];
+  });
 
   return {
     newSet: newSet,
-    winSet: winSet(currentSetPoint, loserSetPoint),
+    winSet: winnerWinSet,
   };
+}
+
+export function isWinningMatch(sets: SetScore[]) {
+  const numberOfVictory = sets.reduce((acc, cur) => {
+    return cur.win ? acc + 1 : acc;
+  }, 0);
+  return numberOfVictory >= 2;
 }
 
 /**
  * Return a boolean if the winner wins the set or not
  */
 function winSet(winnerSet: number, otherPlayerSet: number) {
-  if (winnerSet <= 6 || !hasAtLeastTwoDifference(winnerSet, otherPlayerSet)) {
-    return false;
-  }
-  return true;
+  return winnerSet >= 6 && hasAtLeastTwoDifference(winnerSet, otherPlayerSet);
 }
 
 /**

@@ -1,14 +1,14 @@
-import type { Point } from "./types";
+import { Point } from "./types";
 
 export enum GameState {
   ONGOING,
   FINISH,
 }
 
-export const scrorePoints = new Map<number, Point>([
+export const scrorePoints = new Map<Point, string>([
   [0, "0"],
   [1, "15"],
   [2, "30"],
-  [4, "40"],
-  [5, "AD"],
+  [3, "40"],
+  [4, "AD"],
 ]);
