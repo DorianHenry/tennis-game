@@ -16,6 +16,10 @@
   }
 }
 
+body {
+  background-color: var(--bg-lighter);
+}
+
 .stack-section {
   @extend %stack;
   --stack-gap: 3.5rem;

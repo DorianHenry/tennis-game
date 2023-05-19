@@ -32,3 +32,9 @@ export type Time = {
 export type StoreState = {
   gameList: Game[];
 };
+
+export type Time = {
+  hours: number;
+  minutes: number;
+  seconds: number;
+};

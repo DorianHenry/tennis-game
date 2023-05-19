@@ -93,8 +93,6 @@ export const gamesSlice = createSlice({
     },
   },
 });
-
-// export function addPointScore(gameId: GameId, playerIndex: number) {
 //         const game = state.gameList.find((g) => g.id === action.payload.gameId);
 //         if (!game) {
 //           throw new Error(
@@ -124,6 +122,6 @@ export const gamesSlice = createSlice({
 export const { incerementChrono, addGame, addPoint, replaceAllGames } =
   gamesSlice.actions;
 
-export const selectGames = (state: RootState) => state.games;
+export const selectGames = (state: RootState) => state.games.gameList;
 
 export default gamesSlice.reducer;
