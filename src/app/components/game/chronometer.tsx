@@ -1,6 +1,7 @@
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../hooks/redux";
 import { getTimeWithSeconds } from "../../../functions/numbers";
+import { getLocalTwoNumber } from "../../../functions/string";
 
 type ChronoPropsStore = {
   gameId: number;
@@ -25,7 +26,8 @@ export function Chronometer({ duration }: ChronoProps) {
   const { seconds, minutes, hours } = getTimeWithSeconds(duration);
   return (
     <h3>
-      {hours}h : {minutes}m : {seconds}s
+      {getLocalTwoNumber(hours)}:{getLocalTwoNumber(minutes)}:
+      {getLocalTwoNumber(seconds)}
     </h3>
   );
 }

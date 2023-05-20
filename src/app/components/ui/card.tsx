@@ -1,8 +1,14 @@
 import { PropsWithChildren } from "react";
+import { classNames } from "../../../functions/string";
 
-export function Card({ children }: PropsWithChildren) {
+type Props = {
+  className?: string;
+};
+
+export function Card({ children, className = "" }: PropsWithChildren<Props>) {
+  const classNameConact = classNames("card", className);
   return (
-    <div className="card">
+    <div className={classNameConact}>
       <div className="card__body">{children}</div>
     </div>
   );
