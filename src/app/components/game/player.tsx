@@ -13,7 +13,7 @@ export function Player({
     <div className={`player ${inverseClass}`}>
       <p className="player__name">{player.name}</p>
       <div className="player__avatar">
-        <Avatar avatarId={1} />
+        <Avatar avatarId={player.avatarId} />
       </div>
     </div>
   );

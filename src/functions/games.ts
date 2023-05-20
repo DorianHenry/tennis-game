@@ -1,5 +1,5 @@
 import { GameState } from "../enums";
-import { Game, Player, SetScore } from "../types";
+import { Game, Player, SetScore, NewPlayer } from "../types";
 import { hasAtLeastTwoDifference } from "./numbers";
 
 type PlayersPlaying = {
@@ -21,7 +21,11 @@ type PlayerNewSet = {
 /**
  * Return a new Game with initial values, the two players name and a unique id
  */
-export function getNewGame(player1: string, player2: string, id: number): Game {
+export function getNewGame(
+  player1: NewPlayer,
+  player2: NewPlayer,
+  id: number
+): Game {
   return {
     id,
     currentSet: 0,
@@ -31,9 +35,10 @@ export function getNewGame(player1: string, player2: string, id: number): Game {
   };
 }
 
-export function getNewPlayer(playerName: string): Player {
+export function getNewPlayer(player: NewPlayer): Player {
   return {
-    name: playerName,
+    name: player.name,
+    avatarId: player.avatarId,
     hasService: true,
     sets: [
       {

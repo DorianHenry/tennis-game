@@ -11,6 +11,7 @@ export const gameTest: Game[] = [
       {
         name: "John",
         hasService: true,
+        avatarId: 3,
         sets: [
           {
             win: false,
@@ -30,6 +31,7 @@ export const gameTest: Game[] = [
       {
         name: "Jason",
         hasService: false,
+        avatarId: 4,
         sets: [
           {
             win: false,
@@ -57,6 +59,7 @@ export const gameTest: Game[] = [
       {
         name: "Adrien",
         hasService: true,
+        avatarId: 1,
         sets: [
           {
             win: true,
@@ -76,6 +79,7 @@ export const gameTest: Game[] = [
       {
         name: "Vincent",
         hasService: false,
+        avatarId: 2,
         sets: [
           {
             win: false,

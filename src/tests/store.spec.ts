@@ -41,11 +41,18 @@ describe("Game store", () => {
   });
 
   it("should add a newGame", () => {
-    store.dispatch(addGame({ player1: "Thomas", player2: "Boris" }));
+    store.dispatch(
+      addGame({
+        player1: { name: "Thomas", avatarId: 3 },
+        player2: { name: "Boris", avatarId: 5 },
+      })
+    );
     games = store.getState().games.gameList;
     const lastGame = games[games.length - 1];
     expect(lastGame.players[0].name).toBe("Thomas");
     expect(lastGame.players[1].name).toBe("Boris");
+    expect(lastGame.players[0].avatarId).toBe(3);
+    expect(lastGame.players[1].avatarId).toBe(5);
     expect(lastGame.players[1].sets).toEqual(expectedNewSet);
     expect(lastGame.players[0].sets).toEqual(expectedNewSet);
     expect(lastGame.id).toBeDefined();

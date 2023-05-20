@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import type { Game, GameId, StoreState } from "../types";
+import type { Game, GameId, NewPlayer, StoreState } from "../types";
 import { gameTest } from "../values";
 import {
   getNewGame,
@@ -31,7 +31,7 @@ export const gamesSlice = createSlice({
     },
     addGame(
       state,
-      action: PayloadAction<{ player1: string; player2: string }>
+      action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer }>
     ) {
       const { player1, player2 } = action.payload;
       const newGame: Game = getNewGame(player1, player2, getRandomId());
