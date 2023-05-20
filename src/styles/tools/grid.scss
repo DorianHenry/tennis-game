@@ -1,6 +1,18 @@
 .grid-list-games {
-  display: grid;
+  @include up(1200) {
+    grid-template-columns: repeat(2, 1fr);
+  }  display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+}
+
+.grid-players {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  .player {
+    flex: 1;
+  }
 }

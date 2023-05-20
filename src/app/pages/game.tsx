@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Container } from "../components/container";
+import { Container } from "../components/ui/container";
 
 export function Game() {
   const { gameId } = useParams();

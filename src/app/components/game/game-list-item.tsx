@@ -1,15 +1,25 @@
 import { getStateByNumber } from "../../../functions/string";
-import { Game } from "../../../types";
-import { Card } from "../card";
-import { Label } from "../label";
+import type { Game } from "../../../types";
+
+import { Card } from "../ui/card";
+import { Label } from "../ui/label";
 import { ChronometerWithStore } from "./chronometer";
+import { PlayersPresentation } from "./player";
 
 export function GameListItem({ game }: { game: Game }) {
   return (
     <Card>
-      <Label>{getStateByNumber(game.status)}</Label>
-      <h3>{game.id}</h3>
-      <ChronometerWithStore key={game.id} gameId={game.id} />
+      <div className="stack-inner stack-inner--2">
+        <header>
+          <Label>{getStateByNumber(game.status)}</Label>
+        </header>
+        <section>
+          <PlayersPresentation players={game.players} />
+        </section>
+        <footer>
+          <ChronometerWithStore key={game.id} gameId={game.id} />
+        </footer>
+      </div>
     </Card>
   );
 }

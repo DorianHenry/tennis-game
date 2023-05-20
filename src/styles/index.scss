@@ -1,4 +1,5 @@
 @import "./tools/reset";
+@import "./tools/mixins";
 @import "./tools/css-vars";
 @import "./tools/container";
 @import "./tools/typography";
@@ -9,3 +10,5 @@
 @import "./modules/layout";
 @import "./modules/card";
 @import "./modules/label";
+@import "./modules/player";
+@import "./modules/avatar";

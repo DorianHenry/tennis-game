@@ -6,5 +6,7 @@
 }
 
 .card__body {
-  padding: 2rem 4rem;
+  @include up(800) {
+    padding: 2rem 4rem;
+  }  padding: 1.5rem 2rem;
 }

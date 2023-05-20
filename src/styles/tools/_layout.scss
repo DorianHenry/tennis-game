@@ -28,6 +28,10 @@ body {
 .stack-inner {
   @extend %stack;
   --stack-gap: 2.5rem;
+
+  &--2 {
+    --stack-gap: 1rem;
+  }
 }
 
 .stack-text {

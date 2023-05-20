@@ -1,0 +1,44 @@
+.player {
+  @include up(501) {
+    &__name {
+      max-width: 150px;
+    }
+  }
+
+@include down(500) {
+    &__avatar {
+      display: none;
+    }
+    &--inverse {
+      justify-content: end;
+    }
+  }  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  &__name {
+    max-width: 100px;
+
+    overflow: hidden;
+
+    font-size: 1.4em;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+  }
+  &__avatar {
+    flex-shrink: 0;
+  }
+
+  &--inverse {
+    .player {
+      &__avatar {
+        order: 1;
+      }
+      &__name {
+        order: 2;
+      }
+    }
+  }
+}
