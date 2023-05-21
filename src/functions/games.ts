@@ -35,6 +35,9 @@ export function getNewGame(
   };
 }
 
+/**
+ * Return a new player object with default values
+ */
 export function getNewPlayer(player: NewPlayer): Player {
   return {
     name: player.name,
@@ -59,7 +62,7 @@ export function getNewPlayer(player: NewPlayer): Player {
 }
 
 /**
- * Get a random number with the current timestamp
+ * Return a random number with the current timestamp
  */
 export function getRandomId(): number {
   return new Date().getTime();
@@ -147,6 +150,9 @@ export function getGameScore({
   };
 }
 
+/**
+ * Return true id the match is win
+ */
 export function isWinningMatch(sets: SetScore[]) {
   const numberOfVictory = sets.reduce((acc, cur) => {
     return cur.win ? acc + 1 : acc;

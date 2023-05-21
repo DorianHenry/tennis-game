@@ -6,6 +6,9 @@ export const gameStateMap = new Map<GameState, string>([
   [GameState.FINISH, "Match terminé"],
 ]);
 
+/**
+ * Return the state of the match by the state enum
+ */
 export function getStateByNumber(state: GameState) {
   return gameStateMap.get(state);
 }
@@ -18,6 +21,9 @@ export const scrorePoints = new Map<Point, string>([
   [4, "AD"],
 ]);
 
+/**
+ * Return the score point with the score number
+ */
 export function getScorePoint(scorePoint: Point) {
   return scrorePoints.get(scorePoint);
 }
@@ -30,12 +36,15 @@ export const avatarMap = new Map<AvatarId, string>([
   [5, "/avatars/girl-5.svg"],
 ]);
 
+/**
+ * Return the path to the avatar based on his id
+ */
 export function getAvatar(avatarId: AvatarId) {
   return avatarMap.get(avatarId);
 }
 
 /**
- * Generate className with different arguments boolean null and string
+ * Return className with different arguments boolean null and string
  */
 export function classNames(...classnames: unknown[]) {
   return classnames
