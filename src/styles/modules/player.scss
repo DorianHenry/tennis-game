@@ -5,9 +5,13 @@
     }
   }
 
-@include down(500) {
+@include down(700) {
+    flex-direction: column;
     &__avatar {
-      display: none;
+      order: 1;
+    }
+    &__name {
+      order: 2;
     }
     &--inverse {
       justify-content: end;
@@ -17,6 +21,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+
   &__name {
     max-width: 100px;
 

@@ -1,5 +1,5 @@
 .grid-list-games {
-  @include up(1200) {
+  @include up(1300) {
     grid-template-columns: repeat(2, 1fr);
   }  display: grid;
 
