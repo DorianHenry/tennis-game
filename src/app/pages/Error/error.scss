@@ -9,4 +9,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  &__title {
+    font-size: 8rem;
+  }
 }

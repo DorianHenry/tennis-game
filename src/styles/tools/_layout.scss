@@ -38,3 +38,15 @@ body {
   @extend %stack;
   --stack-gap: 1.5rem;
 }
+
+$max-widths: (800) !default;
+@each $max-width in $max-widths {
+  .mw-#{$max-width} {
+    max-width: #{$max-width + "px"};
+  }
+}
+
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}

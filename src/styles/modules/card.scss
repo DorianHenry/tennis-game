@@ -10,3 +10,11 @@
     padding: 2rem 4rem;
   }  padding: 1.5rem 2rem;
 }
+
+.card--lg {
+  .card__body {
+    @include up(800) {
+      padding: 4rem 5rem;
+    }
+  }
+}
