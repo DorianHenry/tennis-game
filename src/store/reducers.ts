@@ -10,9 +10,11 @@ import {
   isWinningMatch
 } from '../functions/games';
 import { GameState } from '../enums';
+import { LOCAL_STORAGE_NAME } from '../constante';
 
+const gameList = (JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '') as Game[]) || gameTest;
 const initialState: StoreState = {
-  gameList: gameTest
+  gameList
 };
 
 export const gamesSlice = createSlice({

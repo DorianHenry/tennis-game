@@ -27,7 +27,6 @@ export function ChronometerWithStore({
   useEffect(() => {
     if (setTimer) {
       const interval = setInterval(async () => {
-        console.log(gameId);
         await dispatch(incerementChrono({ gameId }));
       }, 1000);
       return () => {
