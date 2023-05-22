@@ -5,6 +5,7 @@ import { ButtonLink } from '../../components/ui/button';
 import { Card } from '../../components/ui/card';
 export function ErrorPage() {
   const error = useRouteError();
+  console.log(error);
   if (isRouteErrorResponse(error)) {
     return (
       <div className="error-page">
@@ -12,7 +13,7 @@ export function ErrorPage() {
           <Card className="card--lg mw-800 mx-auto">
             <div className="stack-text">
               <h1 className="error-page__title">{error.status}</h1>
-              <p>Désolé la page n'existe pas</p>
+              <p>{error.data}</p>
               <p>
                 <ButtonLink to="/">Retour au site</ButtonLink>
               </p>
