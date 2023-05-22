@@ -1,14 +1,8 @@
-import { Avatar } from "../ui/avatar";
-import type { Player as PlayerType } from "../../../types";
+import { Avatar } from '../ui/avatar';
+import type { Player as PlayerType } from '../../../types';
 
-export function Player({
-  player,
-  isInverse = false,
-}: {
-  player: PlayerType;
-  isInverse?: boolean;
-}) {
-  const inverseClass = isInverse ? "player--inverse" : "";
+export function Player({ player, isInverse = false }: { player: PlayerType; isInverse?: boolean }) {
+  const inverseClass = isInverse ? 'player--inverse' : '';
   return (
     <div className={`player ${inverseClass}`}>
       <p className="player__name">{player.name}</p>
@@ -19,11 +13,7 @@ export function Player({
   );
 }
 
-export function PlayersPresentation({
-  players,
-}: {
-  players: [PlayerType, PlayerType];
-}) {
+export function PlayersPresentation({ players }: { players: [PlayerType, PlayerType] }) {
   return (
     <div className="grid-players">
       <Player player={players[0]} />

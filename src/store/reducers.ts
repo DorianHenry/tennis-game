@@ -1,23 +1,23 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store/store";
-import type { Game, GameId, NewPlayer, StoreState } from "../types";
-import { gameTest } from "../values";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store/store';
+import type { Game, GameId, NewPlayer, StoreState } from '../types';
+import { gameTest } from '../values';
 import {
   getNewGame,
   getPointScore,
   getPlayers,
   getRandomId,
   getGameScore,
-  isWinningMatch,
-} from "../functions/games";
-import { GameState } from "../enums";
+  isWinningMatch
+} from '../functions/games';
+import { GameState } from '../enums';
 
 const initialState: StoreState = {
-  gameList: gameTest,
+  gameList: gameTest
 };
 
 export const gamesSlice = createSlice({
-  name: "games",
+  name: 'games',
   initialState,
   reducers: {
     incerementChrono(state, action: PayloadAction<{ gameId: GameId }>) {
@@ -29,23 +29,15 @@ export const gamesSlice = createSlice({
         return g;
       });
     },
-    addGame(
-      state,
-      action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer }>
-    ) {
+    addGame(state, action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer }>) {
       const { player1, player2 } = action.payload;
       const newGame: Game = getNewGame(player1, player2, getRandomId());
       state.gameList = [...state.gameList, newGame];
     },
-    addPoint(
-      state,
-      action: PayloadAction<{ gameId: GameId; playerIndex: number }>
-    ) {
+    addPoint(state, action: PayloadAction<{ gameId: GameId; playerIndex: number }>) {
       const game = state.gameList.find((g) => g.id === action.payload.gameId);
       if (!game) {
-        throw new Error(
-          `game width id ${action.payload.gameId} does not exist`
-        );
+        throw new Error(`game width id ${action.payload.gameId} does not exist`);
       }
 
       if (game.status === GameState.FINISH) {
@@ -57,7 +49,7 @@ export const gamesSlice = createSlice({
       );
       const { newWinningScore, newOtherScore, winGame } = getPointScore({
         winningPlayer,
-        otherPlayer,
+        otherPlayer
       });
 
       state.gameList = state.gameList.map((g) => {
@@ -72,7 +64,7 @@ export const gamesSlice = createSlice({
         const { newSet, winSet } = getGameScore({
           winningPlayer,
           otherPlayer,
-          currentSet: game.currentSet,
+          currentSet: game.currentSet
         });
         g.players[action.payload.playerIndex].sets = newSet;
         if (!winSet) {
@@ -90,37 +82,10 @@ export const gamesSlice = createSlice({
     },
     replaceAllGames(state, action: PayloadAction<{ games: Game[] }>) {
       state.gameList = action.payload.games;
-    },
-  },
+    }
+  }
 });
-//         const game = state.gameList.find((g) => g.id === action.payload.gameId);
-//         if (!game) {
-//           throw new Error(
-//             `game width id ${action.payload.gameId} does not exist`
-//           );
-//         }
-//         const { winningPlayer, otherPlayer, otherPlayerIndex } = getPlayers(
-//           action.payload.playerIndex,
-//           game.players
-//         );
-//         const { newWinningScore, newOtherScore, winGame } = getPointScore({
-//           winningPlayer,
-//           otherPlayer,
-//         });
-// }
-
-// export const thunkSendMessage =
-//   (message: string): ThunkAction<void, RootState, unknown, AnyAction> =>
-//   async (dispatch) => {
-//     dispatch(
-//       gamesSlice.actions.addSet({
-//         message,
-//       })
-//     );
-//   };
-
-export const { incerementChrono, addGame, addPoint, replaceAllGames } =
-  gamesSlice.actions;
+export const { incerementChrono, addGame, addPoint, replaceAllGames } = gamesSlice.actions;
 
 export const selectGames = (state: RootState) => state.games.gameList;
 

@@ -1,6 +1,6 @@
-import { GameState } from "../enums";
-import { Game, Player, SetScore, NewPlayer } from "../types";
-import { hasAtLeastTwoDifference } from "./numbers";
+import { GameState } from '../enums';
+import { Game, Player, SetScore, NewPlayer } from '../types';
+import { hasAtLeastTwoDifference } from './numbers';
 
 type PlayersPlaying = {
   winningPlayer: Player;
@@ -14,24 +14,20 @@ type PlayerNewScore = {
 };
 
 type PlayerNewSet = {
-  newSet: Player["sets"];
+  newSet: Player['sets'];
   winSet: boolean;
 };
 
 /**
  * Return a new Game with initial values, the two players name and a unique id
  */
-export function getNewGame(
-  player1: NewPlayer,
-  player2: NewPlayer,
-  id: number
-): Game {
+export function getNewGame(player1: NewPlayer, player2: NewPlayer, id: number): Game {
   return {
     id,
     currentSet: 0,
     status: GameState.ONGOING,
     chrono: 0,
-    players: [getNewPlayer(player1), getNewPlayer(player2)],
+    players: [getNewPlayer(player1), getNewPlayer(player2)]
   };
 }
 
@@ -46,18 +42,18 @@ export function getNewPlayer(player: NewPlayer): Player {
     sets: [
       {
         win: false,
-        point: 0,
+        point: 0
       },
       {
         point: 0,
-        win: false,
+        win: false
       },
       {
         point: 0,
-        win: false,
-      },
+        win: false
+      }
     ],
-    currentPoint: 0,
+    currentPoint: 0
   };
 }
 
@@ -71,10 +67,7 @@ export function getRandomId(): number {
 /**
  * Return the winner and otherPlayer point score and if the points wins the game
  */
-export function getPointScore({
-  winningPlayer,
-  otherPlayer,
-}: PlayersPlaying): PlayerNewScore {
+export function getPointScore({ winningPlayer, otherPlayer }: PlayersPlaying): PlayerNewScore {
   const winningPlayerScore = winningPlayer.currentPoint;
   const otherPlayerScore = otherPlayer.currentPoint;
 
@@ -82,14 +75,14 @@ export function getPointScore({
     return {
       newWinningScore: winningPlayerScore + 1,
       newOtherScore: otherPlayerScore,
-      winGame: false,
+      winGame: false
     };
   }
   if (otherPlayerScore <= 2 && winningPlayerScore < 3) {
     return {
       newWinningScore: winningPlayerScore + 1,
       newOtherScore: otherPlayerScore,
-      winGame: false,
+      winGame: false
     };
   }
 
@@ -101,7 +94,7 @@ export function getPointScore({
     return {
       newWinningScore: 0,
       newOtherScore: 0,
-      winGame: true,
+      winGame: true
     };
   }
 
@@ -109,14 +102,14 @@ export function getPointScore({
     return {
       newWinningScore: winningPlayerScore + 1,
       newOtherScore: otherPlayerScore,
-      winGame: false,
+      winGame: false
     };
   }
 
   return {
     newWinningScore: winningPlayerScore,
     newOtherScore: otherPlayerScore - 1,
-    winGame: false,
+    winGame: false
   };
 }
 
@@ -126,7 +119,7 @@ export function getPointScore({
 export function getGameScore({
   winningPlayer,
   otherPlayer,
-  currentSet,
+  currentSet
 }: PlayersPlaying & { currentSet: number }): PlayerNewSet {
   const playerSet = [...winningPlayer.sets];
   const loserSet = [...otherPlayer.sets];
@@ -146,7 +139,7 @@ export function getGameScore({
 
   return {
     newSet: newSet,
-    winSet: winnerWinSet,
+    winSet: winnerWinSet
   };
 }
 
@@ -180,6 +173,6 @@ export function getPlayers(
   return {
     winningPlayer,
     otherPlayer,
-    otherPlayerIndex,
+    otherPlayerIndex
   };
 }

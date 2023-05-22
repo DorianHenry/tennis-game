@@ -1,30 +1,25 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import store from "../store/store";
-import { Game } from "../types";
-import { GameState } from "../enums";
-import {
-  addGame,
-  addPoint,
-  incerementChrono,
-  replaceAllGames,
-} from "../store/reducers";
-import { expectedNewSet, gameTest } from "./store.mock";
-describe("Game store", () => {
+import { beforeEach, describe, expect, it } from 'vitest';
+import store from '../store/store';
+import { Game } from '../types';
+import { GameState } from '../enums';
+import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store/reducers';
+import { expectedNewSet, gameTest } from './store.mock';
+describe('Game store', () => {
   let games: Game[];
   let updatedGame: Game;
   beforeEach(() => {
     store.dispatch(replaceAllGames({ games: gameTest }));
     games = store.getState().games.gameList;
   });
-  it("should return defaultValue", () => {
+  it('should return defaultValue', () => {
     const firstGame = games.find((g) => g.id === 1);
     expect(firstGame?.id).toBe(1);
     expect(firstGame?.currentSet).toBe(0);
     expect(firstGame?.status).toBe(GameState.ONGOING);
-    expect(firstGame?.players[0].name).toBe("John");
+    expect(firstGame?.players[0].name).toBe('John');
   });
 
-  it("should update the chrono", () => {
+  it('should update the chrono', () => {
     const firstGame = games.find((g) => g.id === 1) as Game;
     expect(firstGame?.chrono).toBe(0);
     store.dispatch(incerementChrono({ gameId: firstGame.id }));
@@ -40,17 +35,17 @@ describe("Game store", () => {
     expect(gameChangedMulti.chrono).toBe(11);
   });
 
-  it("should add a newGame", () => {
+  it('should add a newGame', () => {
     store.dispatch(
       addGame({
-        player1: { name: "Thomas", avatarId: 3 },
-        player2: { name: "Boris", avatarId: 5 },
+        player1: { name: 'Thomas', avatarId: 3 },
+        player2: { name: 'Boris', avatarId: 5 }
       })
     );
     games = store.getState().games.gameList;
     const lastGame = games[games.length - 1];
-    expect(lastGame.players[0].name).toBe("Thomas");
-    expect(lastGame.players[1].name).toBe("Boris");
+    expect(lastGame.players[0].name).toBe('Thomas');
+    expect(lastGame.players[1].name).toBe('Boris');
     expect(lastGame.players[0].avatarId).toBe(3);
     expect(lastGame.players[1].avatarId).toBe(5);
     expect(lastGame.players[1].sets).toEqual(expectedNewSet);
@@ -61,7 +56,7 @@ describe("Game store", () => {
     expect(games.length).toBe(3);
   });
 
-  it("should handle correctly the points", () => {
+  it('should handle correctly the points', () => {
     const firstGame = games.find((g) => g.id === 1) as Game;
     const firstPlayer = firstGame.players[0];
     expect(firstPlayer.currentPoint).toBe(0);
@@ -83,7 +78,7 @@ describe("Game store", () => {
     expect(updatedGame.players[1].currentPoint).toBe(0);
   });
 
-  it("should handle advantage points", () => {
+  it('should handle advantage points', () => {
     const firstGame = games.find((g) => g.id === 1) as Game;
     const firstPlayer = firstGame.players[0];
     expect(firstPlayer.currentPoint).toBe(0);
@@ -130,7 +125,7 @@ describe("Game store", () => {
     expect(updatedGame.players[1].currentPoint).toBe(0);
   });
 
-  it("should handle game win", () => {
+  it('should handle game win', () => {
     const cGame = games.find((g) => g.id === 2) as Game;
     expect(cGame.players[0].currentPoint).toBe(3);
     const currentTest = gameTest[1];
@@ -150,30 +145,30 @@ describe("Game store", () => {
     expect(updatedGame.players[0].sets).toEqual([
       {
         point: 6,
-        win: true,
+        win: true
       },
       {
         point: 0,
-        win: false,
+        win: false
       },
       {
         point: 6,
-        win: false,
-      },
+        win: false
+      }
     ]);
     expect(cGame.players[1].sets).toEqual([
       {
         win: false,
-        point: 4,
+        point: 4
       },
       {
         win: true,
-        point: 6,
+        point: 6
       },
       {
         win: false,
-        point: 5,
-      },
+        point: 5
+      }
     ]);
 
     for (let i = 0; i <= 3; i++) {
@@ -186,22 +181,22 @@ describe("Game store", () => {
     expect(updatedGame.players[0].sets).toEqual([
       {
         win: true,
-        point: 6,
+        point: 6
       },
       {
         point: 0,
-        win: false,
+        win: false
       },
       {
         point: 7,
-        win: true,
-      },
+        win: true
+      }
     ]);
 
     expect(updatedGame.winner).toEqual(updatedGame.players[0]);
     expect(updatedGame.status).toBe(GameState.FINISH);
   });
-  it("should handle all the game", () => {
+  it('should handle all the game', () => {
     games = store.getState().games.gameList;
     const cGame = games.find((g) => g.id === 1) as Game;
     expect(cGame.players[1].sets).toEqual(expectedNewSet);
@@ -216,7 +211,7 @@ describe("Game store", () => {
     expect(updatedGame.players[0].sets).toEqual([
       { point: 6, win: true },
       { point: 0, win: false },
-      { point: 0, win: false },
+      { point: 0, win: false }
     ]);
     expect(updatedGame.players[0].currentPoint).toBe(1);
     expect(updatedGame.currentSet).toBe(1);
@@ -237,13 +232,13 @@ describe("Game store", () => {
     expect(updatedGame.players[0].sets).toEqual([
       { point: 6, win: true },
       { point: 0, win: false },
-      { point: 0, win: false },
+      { point: 0, win: false }
     ]);
 
     expect(updatedGame.players[1].sets).toEqual([
       { win: false, point: 0 },
       { point: 1, win: false },
-      { point: 0, win: false },
+      { point: 0, win: false }
     ]);
 
     for (let i = 0; i < 100; i++) {
@@ -256,13 +251,13 @@ describe("Game store", () => {
     expect(updatedGame.players[0].sets).toEqual([
       { point: 6, win: true },
       { point: 0, win: false },
-      { point: 0, win: false },
+      { point: 0, win: false }
     ]);
 
     expect(updatedGame.players[1].sets).toEqual([
       { point: 0, win: false },
       { point: 6, win: true },
-      { point: 6, win: true },
+      { point: 6, win: true }
     ]);
     expect(updatedGame.currentSet).toBe(2);
     expect(updatedGame.winner).toBe(updatedGame.players[1]);

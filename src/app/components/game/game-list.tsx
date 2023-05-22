@@ -1,7 +1,7 @@
-import { useAppSelector } from "../../hooks/redux";
-import { selectGames } from "../../../store/reducers";
-import type { Game } from "../../../types";
-import { GameListItem } from "./game-list-item";
+import { useAppSelector } from '../../hooks/redux';
+import { selectGames } from '../../../store/reducers';
+import type { Game } from '../../../types';
+import { GameListItem } from './game-list-item';
 export function GameListWithStore() {
   const games = useAppSelector(selectGames);
   return (

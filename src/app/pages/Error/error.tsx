@@ -1,8 +1,8 @@
-import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-import "./error.scss";
-import { Container } from "../../components/ui/container";
-import { ButtonLink } from "../../components/ui/button";
-import { Card } from "../../components/ui/card";
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import './error.scss';
+import { Container } from '../../components/ui/container';
+import { ButtonLink } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
 export function ErrorPage() {
   const error = useRouteError();
   if (isRouteErrorResponse(error)) {

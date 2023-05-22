@@ -1,12 +1,12 @@
-import { PropsWithChildren } from "react";
-import { Container } from "./container";
-import { classNames } from "../../../functions/string";
+import { PropsWithChildren } from 'react';
+import { Container } from './container';
+import { classNames } from '../../../functions/string';
 
 type Props = {
   className?: string;
 };
-export function Layout({ children, className = "" }: PropsWithChildren<Props>) {
-  const classNameConact = classNames("page-layout", "py-page", className);
+export function Layout({ children, className = '' }: PropsWithChildren<Props>) {
+  const classNameConact = classNames('page-layout', 'py-page', className);
   return (
     <div className={classNameConact}>
       <header className="page-layout__header">

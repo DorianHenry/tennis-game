@@ -1,10 +1,10 @@
-import { getStateByNumber } from "../../../functions/string";
-import type { Game } from "../../../types";
+import { getStateByNumber } from '../../../functions/string';
+import type { Game } from '../../../types';
 
-import { Card } from "../ui/card";
-import { Label } from "../ui/label";
-import { ChronometerWithStore } from "./chronometer";
-import { PlayersPresentation } from "./player";
+import { Card } from '../ui/card';
+import { Label } from '../ui/label';
+import { ChronometerWithStore } from './chronometer';
+import { PlayersPresentation } from './player';
 
 export function GameListItem({ game }: { game: Game }) {
   return (

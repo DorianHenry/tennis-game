@@ -1,4 +1,4 @@
-import type { Time } from "../types";
+import type { Time } from '../types';
 
 /**
  * Check if the two numbers have at least a differnce of two points
@@ -17,6 +17,6 @@ export function getTimeWithSeconds(duration: number): Time {
   return {
     hours,
     minutes,
-    seconds,
+    seconds
   };
 }
