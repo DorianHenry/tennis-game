@@ -1,23 +1,22 @@
 import { useAppSelector } from '../../hooks/redux';
-import { selectGames } from '../../../store/reducers';
-import type { Game } from '../../../types';
-import { GameListItem } from './game-list-item';
+import type { GameId } from '../../../types';
+import { GameListItemWithStore } from './game-list-item';
+import { selectGamesIds } from '../../../store/selectors';
 export function GameListWithStore() {
-  const games = useAppSelector(selectGames);
+  const gameIds = useAppSelector(selectGamesIds);
   return (
     <div className="stack-inner">
       <h1>Liste des jeux </h1>
-      <GameList games={games} />
+      <GameList gameIds={gameIds} />
     </div>
   );
 }
 
-export function GameList({ games }: { games: Game[] }) {
+export function GameList({ gameIds }: { gameIds: GameId[] }) {
   return (
     <div className="grid-list-games">
-      {games.map((game) => (
-        <GameListItem key={game.id} game={game} />
-      ))}
+      {gameIds.length &&
+        gameIds.map((gameId) => <GameListItemWithStore key={`game-${gameId}`} gameId={gameId} />)}
     </div>
   );
 }

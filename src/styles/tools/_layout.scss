@@ -50,3 +50,11 @@ $max-widths: (800) !default;
   margin-right: auto;
   margin-left: auto;
 }
+.flex-between {
+  display: flex;
+
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem;
+}

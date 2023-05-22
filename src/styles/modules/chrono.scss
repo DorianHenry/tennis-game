@@ -1,0 +1,26 @@
+.chrono {
+  display: flex;
+
+  font-size: 1.5em;
+
+  gap: 1em;
+  > * {
+    display: flex;
+
+    text-align: center;
+
+    flex-direction: column;
+  }
+  &__text {
+    font-size: .5em;
+  }
+  &__time {
+    font-weight: 600;
+  }
+  &--center {
+    justify-content: center;
+  }
+  &--right {
+    justify-content: end;
+  }
+}

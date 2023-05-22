@@ -1,5 +1,7 @@
 import { Avatar } from '../ui/avatar';
-import type { Player as PlayerType } from '../../../types';
+import type { GameId, Player as PlayerType } from '../../../types';
+import { useAppSelector } from '../../hooks/redux';
+import { selectPlayers } from '../../../store/selectors';
 
 export function Player({ player, isInverse = false }: { player: PlayerType; isInverse?: boolean }) {
   const inverseClass = isInverse ? 'player--inverse' : '';
@@ -13,7 +15,8 @@ export function Player({ player, isInverse = false }: { player: PlayerType; isIn
   );
 }
 
-export function PlayersPresentation({ players }: { players: [PlayerType, PlayerType] }) {
+export function PlayersPresentation({ gameId }: { gameId: GameId }) {
+  const players = useAppSelector((s) => selectPlayers(s, gameId)) as [PlayerType, PlayerType];
   return (
     <div className="grid-players">
       <Player player={players[0]} />

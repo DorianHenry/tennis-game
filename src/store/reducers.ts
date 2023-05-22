@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
 import type { Game, GameId, NewPlayer, StoreState } from '../types';
 import { gameTest } from '../values';
 import {
@@ -86,9 +85,5 @@ export const gamesSlice = createSlice({
   }
 });
 export const { incerementChrono, addGame, addPoint, replaceAllGames } = gamesSlice.actions;
-
-export const selectGames = (state: RootState) => state.games.gameList;
-export const selectGame = (state: RootState, gameId: GameId) =>
-  state.games.gameList.find((g) => g.id === gameId);
 
 export default gamesSlice.reducer;
