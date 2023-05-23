@@ -6,6 +6,7 @@ export const gameTest: Game[] = [
     id: 1,
     currentSet: 0,
     status: GameStatus.ONGOING,
+    numberOfSets: 2,
     chrono: 0,
     players: [
       {
@@ -53,6 +54,7 @@ export const gameTest: Game[] = [
   {
     id: 2,
     currentSet: 2,
+    numberOfSets: 3,
     status: GameStatus.ONGOING,
     chrono: 300,
     players: [
@@ -71,6 +73,14 @@ export const gameTest: Game[] = [
           },
           {
             point: 5,
+            win: false
+          },
+          {
+            point: 0,
+            win: false
+          },
+          {
+            point: 0,
             win: false
           }
         ],
@@ -92,6 +102,14 @@ export const gameTest: Game[] = [
           {
             win: false,
             point: 5
+          },
+          {
+            win: false,
+            point: 0
+          },
+          {
+            win: false,
+            point: 0
           }
         ],
         currentPoint: 3

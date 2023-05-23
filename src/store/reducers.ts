@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { Game, GameId, NewPlayer, StoreState } from '../types';
+import type { Game, GameId, NewPlayer, NumberOfSets, StoreState } from '../types';
 import { gameTest } from '../values';
 import {
   getNewGame,
@@ -12,11 +12,11 @@ import {
 import { GameStatus } from '../enums';
 import { LOCAL_STORAGE_NAME } from '../constante';
 
-let gameList = gameTest;
+let gameList;
 try {
   gameList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '') as Game[];
 } catch (e) {
-  console.warn(e);
+  gameList = gameTest;
 }
 const initialState: StoreState = {
   gameList
@@ -35,9 +35,12 @@ export const gamesSlice = createSlice({
         return g;
       });
     },
-    addGame(state, action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer }>) {
-      const { player1, player2 } = action.payload;
-      const newGame: Game = getNewGame(player1, player2, getRandomId());
+    addGame(
+      state,
+      action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer; numberOfSets: NumberOfSets }>
+    ) {
+      const { player1, player2, numberOfSets } = action.payload;
+      const newGame: Game = getNewGame(player1, player2, numberOfSets, getRandomId());
       state.gameList = [...state.gameList, newGame];
     },
     addPoint(state, action: PayloadAction<{ gameId: GameId; playerIndex: number }>) {
@@ -76,7 +79,7 @@ export const gamesSlice = createSlice({
         if (!winSet) {
           return g;
         }
-        const winMatch = isWinningMatch(newSet);
+        const winMatch = isWinningMatch(newSet, game.numberOfSets);
         if (!winMatch) {
           g.currentSet++;
           return g;

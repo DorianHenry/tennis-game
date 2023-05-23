@@ -4,6 +4,8 @@ export type GameId = number;
 
 export type AvatarId = 1 | 2 | 3 | 4 | 5;
 
+export type NumberOfSets = 2 | 3;
+
 export type SetScore = {
   win: boolean;
   point: number;
@@ -28,6 +30,7 @@ export type Game = {
   status: GameStatus;
   chrono: number;
   currentSet: number;
+  numberOfSets: NumberOfSets;
   winner?: Player;
 };
 

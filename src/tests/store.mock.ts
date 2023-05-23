@@ -7,6 +7,7 @@ export const gameTest: Game[] = [
     currentSet: 0,
     status: GameStatus.ONGOING,
     chrono: 0,
+    numberOfSets: 2,
     players: [
       {
         name: 'John',
@@ -55,6 +56,7 @@ export const gameTest: Game[] = [
     currentSet: 2,
     status: GameStatus.ONGOING,
     chrono: 300,
+    numberOfSets: 3,
     players: [
       {
         name: 'Adrien',
@@ -71,6 +73,14 @@ export const gameTest: Game[] = [
           },
           {
             point: 5,
+            win: false
+          },
+          {
+            point: 0,
+            win: false
+          },
+          {
+            point: 0,
             win: false
           }
         ],
@@ -92,6 +102,14 @@ export const gameTest: Game[] = [
           {
             win: false,
             point: 5
+          },
+          {
+            win: false,
+            point: 0
+          },
+          {
+            win: false,
+            point: 0
           }
         ],
         currentPoint: 0
@@ -104,6 +122,29 @@ export const expectedNewSet: SetScore[] = [
   {
     win: false,
     point: 0
+  },
+  {
+    point: 0,
+    win: false
+  },
+  {
+    point: 0,
+    win: false
+  },
+  {
+    point: 0,
+    win: false
+  },
+  {
+    point: 0,
+    win: false
+  }
+];
+
+export const expectedNewSetWomen = [
+  {
+    point: 0,
+    win: false
   },
   {
     point: 0,

@@ -3,7 +3,7 @@ import store from '../store/store';
 import { Game } from '../types';
 import { GameStatus } from '../enums';
 import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store/reducers';
-import { expectedNewSet, gameTest } from './store.mock';
+import { expectedNewSet, expectedNewSetWomen, gameTest } from './store.mock';
 describe('Game store', () => {
   let games: Game[];
   let updatedGame: Game;
@@ -38,6 +38,7 @@ describe('Game store', () => {
   it('should add a newGame', () => {
     store.dispatch(
       addGame({
+        numberOfSets: 3,
         player1: { name: 'Thomas', avatarId: 3 },
         player2: { name: 'Boris', avatarId: 5 }
       })
@@ -52,8 +53,18 @@ describe('Game store', () => {
     expect(lastGame.players[0].sets).toEqual(expectedNewSet);
     expect(lastGame.id).toBeDefined();
     expect(lastGame.currentSet).toBe(0);
+    expect(lastGame.numberOfSets).toBe(3);
     expect(lastGame.status).toEqual(GameStatus.ONGOING);
     expect(games.length).toBe(3);
+    store.dispatch(
+      addGame({
+        numberOfSets: 2,
+        player1: { name: 'Test1', avatarId: 3 },
+        player2: { name: 'Test2', avatarId: 5 }
+      })
+    );
+    const updatedGames = store.getState().games.gameList;
+    expect(updatedGames[updatedGames.length - 1].players[0].sets.length).toEqual(3);
   });
 
   it('should handle correctly the points', () => {
@@ -154,6 +165,14 @@ describe('Game store', () => {
       {
         point: 6,
         win: false
+      },
+      {
+        point: 0,
+        win: false
+      },
+      {
+        point: 0,
+        win: false
       }
     ]);
     expect(cGame.players[1].sets).toEqual([
@@ -168,6 +187,14 @@ describe('Game store', () => {
       {
         win: false,
         point: 5
+      },
+      {
+        win: false,
+        point: 0
+      },
+      {
+        win: false,
+        point: 0
       }
     ]);
 
@@ -190,17 +217,34 @@ describe('Game store', () => {
       {
         point: 7,
         win: true
+      },
+      {
+        point: 0,
+        win: false
+      },
+      {
+        point: 0,
+        win: false
       }
     ]);
 
+    expect(updatedGame.status).toBe(GameStatus.ONGOING);
+    expect(updatedGame.winner).toBeUndefined();
+
+    for (let i = 0; i < 25; i++) {
+      store.dispatch(addPoint({ gameId: cGame.id, playerIndex: 0 }));
+    }
+
+    games = store.getState().games.gameList;
+    updatedGame = games.find((g) => g.id === 2) as Game;
     expect(updatedGame.winner).toEqual(updatedGame.players[0]);
     expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
   it('should handle all the game', () => {
     games = store.getState().games.gameList;
     const cGame = games.find((g) => g.id === 1) as Game;
-    expect(cGame.players[1].sets).toEqual(expectedNewSet);
-    expect(cGame.players[0].sets).toEqual(expectedNewSet);
+    expect(cGame.players[1].sets).toEqual(expectedNewSetWomen);
+    expect(cGame.players[0].sets).toEqual(expectedNewSetWomen);
 
     for (let i = 0; i < 25; i++) {
       store.dispatch(addPoint({ gameId: cGame.id, playerIndex: 0 }));

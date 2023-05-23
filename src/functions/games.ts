@@ -1,5 +1,5 @@
 import { GameStatus } from '../enums';
-import { Game, Player, SetScore, NewPlayer } from '../types';
+import { Game, Player, SetScore, NewPlayer, NumberOfSets } from '../types';
 import { hasAtLeastTwoDifference } from './numbers';
 
 type PlayersPlaying = {
@@ -21,38 +21,38 @@ type PlayerNewSet = {
 /**
  * Return a new Game with initial values, the two players name and a unique id
  */
-export function getNewGame(player1: NewPlayer, player2: NewPlayer, id: number): Game {
+export function getNewGame(
+  player1: NewPlayer,
+  player2: NewPlayer,
+  numberOfSets: NumberOfSets,
+  id: number
+): Game {
   return {
     id,
     currentSet: 0,
+    numberOfSets,
     status: GameStatus.ONGOING,
     chrono: 0,
-    players: [getNewPlayer(player1), getNewPlayer(player2)]
+    players: [getNewPlayer(player1, numberOfSets), getNewPlayer(player2, numberOfSets)]
   };
 }
 
 /**
  * Return a new player object with default values
  */
-export function getNewPlayer(player: NewPlayer): Player {
+export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets): Player {
+  const setsToPlay = numberOfSets === 2 ? 3 : 5;
+  const sets = Array.from({ length: setsToPlay }).map(() => {
+    return {
+      win: false,
+      point: 0
+    };
+  });
   return {
     name: player.name,
     avatarId: player.avatarId,
     hasService: true,
-    sets: [
-      {
-        win: false,
-        point: 0
-      },
-      {
-        point: 0,
-        win: false
-      },
-      {
-        point: 0,
-        win: false
-      }
-    ],
+    sets,
     currentPoint: 0
   };
 }
@@ -146,11 +146,11 @@ export function getGameScore({
 /**
  * Return true id the match is win
  */
-export function isWinningMatch(sets: SetScore[]) {
+export function isWinningMatch(sets: SetScore[], numberOfSets: NumberOfSets) {
   const numberOfVictory = sets.reduce((acc, cur) => {
     return cur.win ? acc + 1 : acc;
   }, 0);
-  return numberOfVictory >= 2;
+  return numberOfVictory >= numberOfSets;
 }
 
 /**
