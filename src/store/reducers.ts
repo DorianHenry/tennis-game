@@ -5,12 +5,13 @@ import {
   getNewGame,
   getPointScore,
   getPlayers,
-  getRandomId,
   getGameScore,
-  isWinningMatch
+  isWinningMatch,
+  isTieBreak
 } from '../functions/games';
 import { GameStatus } from '../enums';
 import { LOCAL_STORAGE_NAME } from '../constante';
+import { getRandomId } from '../functions/numbers';
 
 let gameList;
 try {
@@ -58,7 +59,8 @@ export const gamesSlice = createSlice({
       );
       const { newWinningScore, newOtherScore, winGame } = getPointScore({
         winningPlayer,
-        otherPlayer
+        otherPlayer,
+        isTieBreak: game.isTieBreak
       });
 
       state.gameList = state.gameList.map((g) => {
@@ -70,12 +72,14 @@ export const gamesSlice = createSlice({
         if (!winGame) {
           return g;
         }
-        const { newSet, winSet } = getGameScore({
+        const { newSet, winSet, winnerSetPoint, loserSetPoint } = getGameScore({
           winningPlayer,
           otherPlayer,
-          currentSet: game.currentSet
+          currentSet: game.currentSet,
+          isTieBreak: game.isTieBreak
         });
         g.players[action.payload.playerIndex].sets = newSet;
+        g.isTieBreak = isTieBreak(winnerSetPoint, loserSetPoint);
         if (!winSet) {
           return g;
         }

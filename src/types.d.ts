@@ -27,6 +27,7 @@ export type NewPlayer = {
 export type Game = {
   id: GameId;
   players: [Player, Player];
+  isTieBreak: boolean;
   status: GameStatus;
   chrono: number;
   currentSet: number;

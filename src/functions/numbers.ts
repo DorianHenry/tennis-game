@@ -20,3 +20,9 @@ export function getTimeWithSeconds(duration: number): Time {
     seconds
   };
 }
+/**
+ * Return a random number with the current timestamp
+ */
+export function getRandomId(): number {
+  return new Date().getTime();
+}

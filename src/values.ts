@@ -5,6 +5,7 @@ export const gameTest: Game[] = [
   {
     id: 1,
     currentSet: 0,
+    isTieBreak: false,
     status: GameStatus.ONGOING,
     numberOfSets: 2,
     chrono: 0,
@@ -56,6 +57,7 @@ export const gameTest: Game[] = [
     currentSet: 2,
     numberOfSets: 3,
     status: GameStatus.ONGOING,
+    isTieBreak: false,
     chrono: 300,
     players: [
       {

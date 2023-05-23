@@ -5,7 +5,6 @@ import { ButtonLink } from '../../components/ui/button';
 import { Card } from '../../components/ui/card';
 export function ErrorPage() {
   const error = useRouteError();
-  console.log(error);
   if (isRouteErrorResponse(error)) {
     return (
       <div className="error-page">

@@ -8,6 +8,7 @@ export const gameTest: Game[] = [
     status: GameStatus.ONGOING,
     chrono: 0,
     numberOfSets: 2,
+    isTieBreak: false,
     players: [
       {
         name: 'John',
@@ -55,6 +56,7 @@ export const gameTest: Game[] = [
     id: 2,
     currentSet: 2,
     status: GameStatus.ONGOING,
+    isTieBreak: false,
     chrono: 300,
     numberOfSets: 3,
     players: [

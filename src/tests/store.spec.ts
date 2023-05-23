@@ -136,6 +136,43 @@ describe('Game store', () => {
     expect(updatedGame.players[1].currentPoint).toBe(0);
   });
 
+  it.only('should handle tieBreak', () => {
+    games = store.getState().games.gameList;
+    updatedGame = games.find((g) => g.id === 2) as Game;
+    expect(updatedGame.isTieBreak).toBe(false);
+
+    // go to tie break
+    store.dispatch(addPoint({ gameId: updatedGame.id, playerIndex: 0 }));
+    for (let i = 0; i < 4; i++) {
+      store.dispatch(addPoint({ gameId: updatedGame.id, playerIndex: 1 }));
+    }
+    games = store.getState().games.gameList;
+    updatedGame = games.find((g) => g.id === 2) as Game;
+    expect(updatedGame.isTieBreak).toBe(true);
+    for (let i = 0; i < 6; i++) {
+      store.dispatch(addPoint({ gameId: updatedGame.id, playerIndex: 0 }));
+      store.dispatch(addPoint({ gameId: updatedGame.id, playerIndex: 1 }));
+    }
+    games = store.getState().games.gameList;
+    updatedGame = games.find((g) => g.id === 2) as Game;
+    expect(updatedGame.players[0].currentPoint).toBe(6);
+    expect(updatedGame.players[1].currentPoint).toBe(6);
+    expect(updatedGame.players[0].sets[updatedGame.currentSet].win).toBe(false);
+    expect(updatedGame.players[1].sets[updatedGame.currentSet].win).toBe(false);
+    store.dispatch(addPoint({ gameId: updatedGame.id, playerIndex: 0 }));
+    games = store.getState().games.gameList;
+    updatedGame = games.find((g) => g.id === 2) as Game;
+    expect(updatedGame.players[0].currentPoint).toBe(7);
+    expect(updatedGame.players[0].sets[updatedGame.currentSet].win).toBe(false);
+    store.dispatch(addPoint({ gameId: updatedGame.id, playerIndex: 0 }));
+    games = store.getState().games.gameList;
+    updatedGame = games.find((g) => g.id === 2) as Game;
+    expect(updatedGame.players[0].currentPoint).toBe(0);
+    expect(updatedGame.players[1].currentPoint).toBe(0);
+    expect(updatedGame.players[0].sets[2].win).toBe(true);
+    expect(updatedGame.isTieBreak).toBe(false);
+  });
+
   it('should handle game win', () => {
     const cGame = games.find((g) => g.id === 2) as Game;
     expect(cGame.players[0].currentPoint).toBe(3);

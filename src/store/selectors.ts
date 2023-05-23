@@ -26,6 +26,7 @@ export const selectGamesIds = memoize((state: RootState) => state.games.gameList
 export const selectChrono = createSelector([selectGameById], (game) => game.chrono);
 export const selectMatchStatus = createSelector([selectGameById], (game) => game.status);
 export const selectPlayers = createSelector([selectGameById], (game) => game.players);
+export const selectIsTieBreak = createSelector([selectGameById], (game) => game.isTieBreak);
 export const selectPlayer = createSelector([selectPlayerByIndex], (player) => player);
 export const selectPlayerSets = createSelector([selectPlayerByIndex], (player) => player.sets);
 export const selectPlayerName = createSelector([selectPlayerByIndex], (player) => player.name);

@@ -5,6 +5,7 @@ import { hasAtLeastTwoDifference } from './numbers';
 type PlayersPlaying = {
   winningPlayer: Player;
   otherPlayer: Player;
+  isTieBreak: boolean;
 };
 
 type PlayerNewScore = {
@@ -16,6 +17,8 @@ type PlayerNewScore = {
 type PlayerNewSet = {
   newSet: Player['sets'];
   winSet: boolean;
+  winnerSetPoint: number;
+  loserSetPoint: number;
 };
 
 /**
@@ -31,6 +34,7 @@ export function getNewGame(
     id,
     currentSet: 0,
     numberOfSets,
+    isTieBreak: false,
     status: GameStatus.ONGOING,
     chrono: 0,
     players: [getNewPlayer(player1, numberOfSets), getNewPlayer(player2, numberOfSets)]
@@ -58,18 +62,19 @@ export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets): Pla
 }
 
 /**
- * Return a random number with the current timestamp
- */
-export function getRandomId(): number {
-  return new Date().getTime();
-}
-
-/**
  * Return the winner and otherPlayer point score and if the points wins the game
  */
-export function getPointScore({ winningPlayer, otherPlayer }: PlayersPlaying): PlayerNewScore {
+export function getPointScore({
+  winningPlayer,
+  otherPlayer,
+  isTieBreak
+}: PlayersPlaying & { isTieBreak: boolean }): PlayerNewScore {
   const winningPlayerScore = winningPlayer.currentPoint;
   const otherPlayerScore = otherPlayer.currentPoint;
+
+  if (isTieBreak) {
+    return getTieBreakScore({ winningPlayerScore, otherPlayerScore });
+  }
 
   if (winningPlayerScore <= 2) {
     return {
@@ -113,6 +118,37 @@ export function getPointScore({ winningPlayer, otherPlayer }: PlayersPlaying): P
   };
 }
 
+export function getTieBreakScore({
+  winningPlayerScore,
+  otherPlayerScore
+}: {
+  winningPlayerScore: number;
+  otherPlayerScore: number;
+}): PlayerNewScore {
+  const newWinningScore = winningPlayerScore + 1;
+  const winGame = isTieBreakWin(newWinningScore, otherPlayerScore);
+  if (winGame) {
+    return {
+      newWinningScore: 0,
+      newOtherScore: 0,
+      winGame
+    };
+  }
+  return {
+    newWinningScore,
+    newOtherScore: otherPlayerScore,
+    winGame
+  };
+}
+
+function isTieBreakWin(winningScore: number, otherScore: number) {
+  return winningScore >= 7 && hasAtLeastTwoDifference(winningScore, otherScore);
+}
+
+export function isTieBreak(playerSet1: number, playerSet2: number) {
+  return playerSet1 === 6 && playerSet2 === 6;
+}
+
 /**
  * Return the new winner sets and if he wins the set
  */
@@ -127,17 +163,19 @@ export function getGameScore({
     throw new Error(`No set in index ${currentSet} found`);
   }
 
-  const currentSetPoint = playerSet[currentSet].point + 1;
+  const winnerSetPoint = playerSet[currentSet].point + 1;
   const loserSetPoint = loserSet[currentSet].point;
-  const winnerWinSet = winSet(currentSetPoint, loserSetPoint);
+  const winnerWinSet = winSet(winnerSetPoint, loserSetPoint);
   const newSet = playerSet.map((s, i) => {
     if (i === currentSet) {
-      return { point: currentSetPoint, win: winnerWinSet };
+      return { point: winnerSetPoint, win: winnerWinSet };
     }
     return s;
   });
 
   return {
+    winnerSetPoint,
+    loserSetPoint,
     newSet: newSet,
     winSet: winnerWinSet
   };
@@ -157,6 +195,9 @@ export function isWinningMatch(sets: SetScore[], numberOfSets: NumberOfSets) {
  * Return a boolean if the winner wins the set or not
  */
 function winSet(winnerSet: number, otherPlayerSet: number) {
+  if (winnerSet === 7) {
+    return true;
+  }
   return winnerSet >= 6 && hasAtLeastTwoDifference(winnerSet, otherPlayerSet);
 }
 
@@ -166,7 +207,7 @@ function winSet(winnerSet: number, otherPlayerSet: number) {
 export function getPlayers(
   winningPlayerIndex: number,
   players: [Player, Player]
-): PlayersPlaying & { otherPlayerIndex: number } {
+): Omit<PlayersPlaying, 'isTieBreak'> & { otherPlayerIndex: number } {
   const winningPlayer = players[winningPlayerIndex];
   const otherPlayerIndex = winningPlayerIndex === 0 ? 1 : 0;
   const otherPlayer = players[otherPlayerIndex];
