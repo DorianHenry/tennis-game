@@ -1,30 +1,41 @@
 import { useParams } from 'react-router-dom';
-import { GameId } from '../../../types';
+import type { StoreGetGame } from '../../../types';
 import { PlayersPresentation } from './player';
 import { Card } from '../ui/card';
 import { ChronometerWithStore } from './chronometer';
-import React from 'react';
+import { GameMatch } from './game-match';
+import { useAppSelector } from '../../hooks/redux';
+import { selectMatchStatus } from '../../../store/selectors';
+import { GameStatus } from '../../../enums';
 
-type Props = {
-  gameId: GameId;
+type Props = StoreGetGame & {
+  matchStatus: GameStatus;
 };
-export const GameDetailWithStore = React.memo(() => {
+export function GameDetailWithStore() {
   const { gameId } = useParams();
   if (!gameId) {
-    throw new Error('pas de game id donné');
+    throw new Response(`Pas de jeux avec l'id ${gameId}`, { status: 404 });
   }
-  return <GameDetail gameId={parseInt(gameId, 10)} />;
-});
+  const gameIdN = parseInt(gameId, 10);
+  const matchStatus = useAppSelector((s) => selectMatchStatus(s, gameIdN));
+  return <GameDetail gameId={gameIdN} matchStatus={matchStatus} />;
+}
 
-export const GameDetail = React.memo(({ gameId }: Props) => {
+export function GameDetail({ gameId, matchStatus }: Props) {
+  const isMatchFinish = matchStatus === GameStatus.FINISH;
   return (
-    <>
-      <div className="mw-800 mx-auto">
+    <div className="stack-section">
+      <div className="mw-800 mx-auto w-100">
         <Card classNameBody="stack-text">
-          <PlayersPresentation gameId={gameId} />
-          <ChronometerWithStore position="center" gameId={gameId} setTimer={true} />
+          <PlayersPresentation gameId={gameId} showAddPoint={!isMatchFinish} />
+          <ChronometerWithStore position="center" gameId={gameId} setTimer={!isMatchFinish} />
         </Card>
       </div>
-    </>
+      <div>
+        <Card>
+          <GameMatch gameId={gameId} />
+        </Card>
+      </div>
+    </div>
   );
-});
+}

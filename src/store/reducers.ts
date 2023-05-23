@@ -9,10 +9,15 @@ import {
   getGameScore,
   isWinningMatch
 } from '../functions/games';
-import { GameState } from '../enums';
+import { GameStatus } from '../enums';
 import { LOCAL_STORAGE_NAME } from '../constante';
 
-const gameList = (JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '') as Game[]) || gameTest;
+let gameList = gameTest;
+try {
+  gameList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '') as Game[];
+} catch (e) {
+  console.warn(e);
+}
 const initialState: StoreState = {
   gameList
 };
@@ -41,7 +46,7 @@ export const gamesSlice = createSlice({
         throw new Error(`game width id ${action.payload.gameId} does not exist`);
       }
 
-      if (game.status === GameState.FINISH) {
+      if (game.status === GameStatus.FINISH) {
         return;
       }
       const { winningPlayer, otherPlayer, otherPlayerIndex } = getPlayers(
@@ -77,7 +82,7 @@ export const gamesSlice = createSlice({
           return g;
         }
         g.winner = winningPlayer;
-        g.status = GameState.FINISH;
+        g.status = GameStatus.FINISH;
         return g;
       });
     },

@@ -1,16 +1,16 @@
-import { GameState } from '../enums';
+import { GameStatus } from '../enums';
 import { AvatarId, Point } from '../types';
 
-export const gameStateMap = new Map<GameState, string>([
-  [GameState.ONGOING, 'En cours'],
-  [GameState.FINISH, 'Match terminé']
+export const GameStatusMap = new Map<GameStatus, string>([
+  [GameStatus.ONGOING, 'En cours'],
+  [GameStatus.FINISH, 'Match terminé']
 ]);
 
 /**
  * Return the state of the match by the state enum
  */
-export function getStateByNumber(state: GameState) {
-  return gameStateMap.get(state);
+export function getStateByNumber(state: GameStatus) {
+  return GameStatusMap.get(state);
 }
 
 export const scrorePoints = new Map<Point, string>([

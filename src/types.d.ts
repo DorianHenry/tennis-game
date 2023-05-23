@@ -25,7 +25,7 @@ export type NewPlayer = {
 export type Game = {
   id: GameId;
   players: [Player, Player];
-  status: GameState;
+  status: GameStatus;
   chrono: number;
   currentSet: number;
   winner?: Player;
@@ -39,4 +39,12 @@ export type Time = {
   hours: number;
   minutes: number;
   seconds: number;
+};
+
+export type StoreGetGame = {
+  gameId: GameId;
+};
+
+export type StoreGetPlayer = StoreGetGame & {
+  playerIndex: number;
 };

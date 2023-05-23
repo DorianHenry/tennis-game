@@ -1,27 +1,68 @@
 import { Avatar } from '../ui/avatar';
-import type { GameId, Player as PlayerType } from '../../../types';
+import type { GameId, PlayerInfo, StoreGetPlayer } from '../../../types';
 import { useAppSelector } from '../../hooks/redux';
-import { selectPlayers } from '../../../store/selectors';
+import { selectPlayerAvatar, selectPlayerName } from '../../../store/selectors';
+import { Button } from '../ui/button';
 
-export function Player({ player, isInverse = false }: { player: PlayerType; isInverse?: boolean }) {
+import { useAddPoint } from '../../hooks/addPoint';
+
+type PlayerProps = StoreGetPlayer & {
+  isInverse?: boolean;
+  showAddPoint?: boolean;
+};
+
+export function Player({
+  isInverse = false,
+  gameId,
+  playerIndex,
+  showAddPoint = false
+}: PlayerProps) {
   const inverseClass = isInverse ? 'player--inverse' : '';
+  const handleClick = useAddPoint({ gameId, playerIndex });
   return (
     <div className={`player ${inverseClass}`}>
-      <p className="player__name">{player.name}</p>
+      <div className="player__info">
+        <PlayerName gameId={gameId} playerIndex={playerIndex} className="player__name" />
+        {showAddPoint && (
+          <Button size="sm" onClick={handleClick}>
+            Marquer un point
+          </Button>
+        )}
+      </div>
+
       <div className="player__avatar">
-        <Avatar avatarId={player.avatarId} />
+        <PlayerAvatar gameId={gameId} playerIndex={playerIndex} />
       </div>
     </div>
   );
 }
 
-export function PlayersPresentation({ gameId }: { gameId: GameId }) {
-  const players = useAppSelector((s) => selectPlayers(s, gameId)) as [PlayerType, PlayerType];
+export function PlayersPresentation({
+  gameId,
+  showAddPoint = false
+}: {
+  gameId: GameId;
+  showAddPoint?: boolean;
+}) {
   return (
     <div className="grid-players">
-      <Player player={players[0]} />
+      <Player gameId={gameId} playerIndex={0} showAddPoint={showAddPoint} />
       <div className="text-divide">:</div>
-      <Player player={players[1]} isInverse={true} />
+      <Player gameId={gameId} playerIndex={1} showAddPoint={showAddPoint} isInverse={true} />
     </div>
   );
+}
+
+type PlayerNameProps = StoreGetPlayer & {
+  className?: string;
+};
+
+export function PlayerName({ gameId, playerIndex, className = '' }: PlayerNameProps) {
+  const name = useAppSelector((s) => selectPlayerName(s, gameId, playerIndex));
+  return <div className={className}>{name}</div>;
+}
+
+export function PlayerAvatar({ gameId, playerIndex }: StoreGetPlayer) {
+  const avatarId = useAppSelector((s) => selectPlayerAvatar(s, gameId, playerIndex));
+  return <Avatar avatarId={avatarId} />;
 }

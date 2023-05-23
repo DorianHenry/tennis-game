@@ -1,4 +1,4 @@
-import { GameState } from '../enums';
+import { GameStatus } from '../enums';
 import { Game, Player, SetScore, NewPlayer } from '../types';
 import { hasAtLeastTwoDifference } from './numbers';
 
@@ -25,7 +25,7 @@ export function getNewGame(player1: NewPlayer, player2: NewPlayer, id: number): 
   return {
     id,
     currentSet: 0,
-    status: GameState.ONGOING,
+    status: GameStatus.ONGOING,
     chrono: 0,
     players: [getNewPlayer(player1), getNewPlayer(player2)]
   };

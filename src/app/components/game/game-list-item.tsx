@@ -1,12 +1,11 @@
-import { GameState } from '../../../enums';
-import { getStateByNumber } from '../../../functions/string';
+import { GameStatus } from '../../../enums';
 import { selectMatchStatus } from '../../../store/selectors';
 import type { GameId } from '../../../types';
 import { useAppSelector } from '../../hooks/redux';
 import { ButtonLink } from '../ui/button';
 import { Card } from '../ui/card';
-import { Label } from '../ui/label';
 import { ChronometerWithStore } from './chronometer';
+import { LabelGameStatus } from './label-status';
 import { PlayersPresentation } from './player';
 
 export function GameListItemWithStore({ gameId }: { gameId: GameId }) {
@@ -14,12 +13,12 @@ export function GameListItemWithStore({ gameId }: { gameId: GameId }) {
   return <GameListItem gameId={gameId} status={status} />;
 }
 
-export function GameListItem({ gameId, status }: { gameId: GameId; status: GameState }) {
+export function GameListItem({ gameId, status }: { gameId: GameId; status: GameStatus }) {
   return (
     <Card>
       <div className="stack-inner stack-inner--2">
         <header className="flex-between">
-          <Label>{getStateByNumber(status)}</Label>
+          <LabelGameStatus status={status} />
           <ChronometerWithStore key={`chrono-${gameId}`} gameId={gameId} />
         </header>
         <section>

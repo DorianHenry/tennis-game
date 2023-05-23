@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import store from '../store/store';
 import { Game } from '../types';
-import { GameState } from '../enums';
+import { GameStatus } from '../enums';
 import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store/reducers';
 import { expectedNewSet, gameTest } from './store.mock';
 describe('Game store', () => {
@@ -15,7 +15,7 @@ describe('Game store', () => {
     const firstGame = games.find((g) => g.id === 1);
     expect(firstGame?.id).toBe(1);
     expect(firstGame?.currentSet).toBe(0);
-    expect(firstGame?.status).toBe(GameState.ONGOING);
+    expect(firstGame?.status).toBe(GameStatus.ONGOING);
     expect(firstGame?.players[0].name).toBe('John');
   });
 
@@ -52,7 +52,7 @@ describe('Game store', () => {
     expect(lastGame.players[0].sets).toEqual(expectedNewSet);
     expect(lastGame.id).toBeDefined();
     expect(lastGame.currentSet).toBe(0);
-    expect(lastGame.status).toEqual(GameState.ONGOING);
+    expect(lastGame.status).toEqual(GameStatus.ONGOING);
     expect(games.length).toBe(3);
   });
 
@@ -133,14 +133,14 @@ describe('Game store', () => {
     expect(cGame.players[0].sets).toEqual(currentTest.players[0].sets);
     expect(cGame.players[1].sets).toEqual(currentTest.players[1].sets);
 
-    expect(cGame.status).toBe(GameState.ONGOING);
+    expect(cGame.status).toBe(GameStatus.ONGOING);
     expect(cGame.winner).toBeUndefined();
 
     store.dispatch(addPoint({ gameId: cGame.id, playerIndex: 0 }));
 
     games = store.getState().games.gameList;
     updatedGame = games.find((g) => g.id === 2) as Game;
-    expect(cGame.status).toBe(GameState.ONGOING);
+    expect(cGame.status).toBe(GameStatus.ONGOING);
     expect(updatedGame.players[0].currentPoint).toBe(0);
     expect(updatedGame.players[0].sets).toEqual([
       {
@@ -194,7 +194,7 @@ describe('Game store', () => {
     ]);
 
     expect(updatedGame.winner).toEqual(updatedGame.players[0]);
-    expect(updatedGame.status).toBe(GameState.FINISH);
+    expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
   it('should handle all the game', () => {
     games = store.getState().games.gameList;
@@ -261,6 +261,6 @@ describe('Game store', () => {
     ]);
     expect(updatedGame.currentSet).toBe(2);
     expect(updatedGame.winner).toBe(updatedGame.players[1]);
-    expect(updatedGame.status).toBe(GameState.FINISH);
+    expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
 });

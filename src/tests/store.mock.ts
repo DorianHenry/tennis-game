@@ -1,11 +1,11 @@
 import { Game, SetScore } from '../types';
-import { GameState } from '../enums';
+import { GameStatus } from '../enums';
 
 export const gameTest: Game[] = [
   {
     id: 1,
     currentSet: 0,
-    status: GameState.ONGOING,
+    status: GameStatus.ONGOING,
     chrono: 0,
     players: [
       {
@@ -53,7 +53,7 @@ export const gameTest: Game[] = [
   {
     id: 2,
     currentSet: 2,
-    status: GameState.ONGOING,
+    status: GameStatus.ONGOING,
     chrono: 300,
     players: [
       {

@@ -6,7 +6,7 @@ import {
   getScorePoint,
   getStateByNumber
 } from '../functions/string';
-import { GameState } from '../enums';
+import { GameStatus } from '../enums';
 
 describe('string methods', () => {
   describe('className', () => {
@@ -20,8 +20,8 @@ describe('string methods', () => {
   });
 
   describe('gets methods', () => {
-    it('should return correct gameState', () => {
-      const finish = getStateByNumber(GameState.FINISH);
+    it('should return correct GameStatus', () => {
+      const finish = getStateByNumber(GameStatus.FINISH);
       expect(finish).toBe('Match terminé');
     });
     it('should return correct avatar', () => {
