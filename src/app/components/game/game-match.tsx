@@ -8,9 +8,6 @@ import { PlayerName } from './player';
 export function GameMatch({ gameId }: StoreGetGame) {
   return (
     <div className="game-match stack-inner">
-      <header>
-        <h2>Le match</h2>
-      </header>
       <section>
         {Array.from({ length: 2 }).map((_, i) => {
           return <PlayerMatchScore gameId={gameId} key={`player-match-${i}`} playerIndex={i} />;
@@ -28,7 +25,7 @@ function PlayerMatchScore({ playerIndex, gameId }: StoreGetPlayer) {
   );
   return (
     <div className="game-match__item">
-      <PlayerName gameId={gameId} playerIndex={playerIndex} />
+      <PlayerName className="game-match__player" gameId={gameId} playerIndex={playerIndex} />
       <GamePointWithStore
         className={`${className} set-score--point`}
         gameId={gameId}

@@ -41,6 +41,9 @@
       &__avatar {
         order: 1;
       }
+      &__name {
+        justify-self: end;
+      }
       &__info {
         order: 2;
       }

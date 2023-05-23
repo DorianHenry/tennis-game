@@ -38,3 +38,5 @@ export const selectPlayerCurrentPoint = createSelector(
   [selectPlayerByIndex],
   (player) => player.currentPoint
 );
+export const selectCurrentSet = createSelector([selectGameById], (game) => game.currentSet);
+export const selectNumberOfSets = createSelector([selectGameById], (game) => game.numberOfSets);

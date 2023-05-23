@@ -1,22 +1,44 @@
 import type { SetScore, StoreGetPlayer } from '../../../types';
-import { selectPlayerSets } from '../../../store/selectors';
+import { selectCurrentSet, selectPlayerSets } from '../../../store/selectors';
 import { useAppSelector } from '../../hooks/redux';
+import { classNames } from '../../../functions/string';
 
 type Props = StoreGetPlayer & {
   className?: string;
 };
 
+type SetProps = {
+  set: SetScore;
+  className?: string;
+  currentSet: number;
+  index: number;
+};
 export function GameSetWithStore({ gameId, playerIndex, className = '' }: Props) {
   const sets = useAppSelector((s) => selectPlayerSets(s, gameId, playerIndex));
+  const currentSet = useAppSelector((s) => selectCurrentSet(s, gameId));
   return (
     <>
       {sets.map((set, i) => (
-        <GameSet key={`game-set-${playerIndex}-${i}`} set={set} className={className} />
+        <GameSet
+          key={`game-set-${playerIndex}-${i}`}
+          currentSet={currentSet}
+          set={set}
+          index={i}
+          className={className}
+        />
       ))}
     </>
   );
 }
 
-function GameSet({ set, className = '' }: { set: SetScore; className?: string }) {
-  return <div className={className}>{set.point}</div>;
+function GameSet({ set, className = '', currentSet, index }: SetProps) {
+  const customClassName = classNames(
+    className,
+    set.win && 'set-score--win',
+    currentSet === index && 'set-score--current'
+  );
+  if (currentSet < index) {
+    return <></>;
+  }
+  return <div className={customClassName}>{set.point}</div>;
 }

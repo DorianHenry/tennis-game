@@ -21,7 +21,7 @@ export function Player({
   const handleClick = useAddPoint({ gameId, playerIndex });
   return (
     <div className={`player ${inverseClass}`}>
-      <div className="player__info">
+      <div className="player__info stack-text stack-text--2">
         <PlayerName gameId={gameId} playerIndex={playerIndex} className="player__name" />
         {showAddPoint && (
           <Button size="sm" onClick={handleClick}>

@@ -2,10 +2,11 @@ import { PropsWithChildren } from 'react';
 import { NavLink, To } from 'react-router-dom';
 import { classNames } from '../../../functions/string';
 type ButtonType = 'primary' | 'default';
-type ButtonSize = 'md' | 'sm';
+type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonLinkProps = {
   btnType?: ButtonType;
   to: To;
+  size?: ButtonSize;
 };
 
 type ButtonProps = JSX.IntrinsicElements['button'] & {
@@ -17,9 +18,10 @@ type ButtonProps = JSX.IntrinsicElements['button'] & {
 export function ButtonLink({
   children,
   btnType = 'primary',
+  size,
   to
 }: PropsWithChildren<ButtonLinkProps>) {
-  const classNameConact = classNames('btn', `btn--${btnType}`);
+  const classNameConact = classNames('btn', `btn--${btnType}`, size && `btn--${size}`);
   return (
     <NavLink to={to} className={classNameConact}>
       {children}

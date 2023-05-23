@@ -37,6 +37,9 @@ body {
 .stack-text {
   @extend %stack;
   --stack-gap: 1.5rem;
+  &--2 {
+    --stack-gap: .8rem;
+  }
 }
 
 

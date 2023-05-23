@@ -16,3 +16,22 @@
     flex: 1;
   }
 }
+
+.grid-game-match {
+  display: grid;
+
+  margin-right: auto;
+  margin-left: auto;
+
+  gap: 2rem 7rem;
+  grid-template-columns: repeat(3, 1fr);
+  &__score {
+    grid-column: span 2;
+  }
+  &__chrono {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+}

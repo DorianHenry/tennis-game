@@ -22,7 +22,15 @@
   background-color: var(--brand-primary);
 
   text-align: center;
-  font-weight: 600;
+
+  &--win,
+  &--point {
+    font-weight: 600;
+  }
+
+  &--current {
+    background-color: var(--brand-secondary);
+  }
 
   &--top {
     border-top-left-radius: 15px;
