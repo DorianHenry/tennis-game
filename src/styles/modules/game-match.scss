@@ -1,0 +1,39 @@
+.game-match {
+  font-size: 1.1em;
+  &__item {
+    display: grid;
+
+    grid-template-columns: 140px 70px repeat(3, 50px);
+    align-items: center;
+    gap: 1em;
+  }
+  &__player {
+    padding-top: .5em;
+    padding-bottom: .5em;
+
+    border-right: 1px solid #000000;
+  }
+}
+
+.set-score {
+  padding-top: .5em;
+  padding-bottom: .5em;
+
+  background-color: var(--brand-primary);
+
+  text-align: center;
+  font-weight: 600;
+
+  &--top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  &--bottom {
+    border-bottom-right-radius: 15px;
+
+    border-bottom-left-radius: 15px;
+  }
+  &--point {
+    background-color: var(--gray-lighter);
+  }
+}

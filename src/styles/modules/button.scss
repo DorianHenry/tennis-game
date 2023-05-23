@@ -1,17 +1,21 @@
 .btn {
   display: inline-block;
 
-  padding: 1rem 1.5rem;
+  padding: .5rem 1rem;
+
+  border: 1px solid;
 
   font-size: .8em;
   text-transform: uppercase;
 
   letter-spacing: 1px;
   &--primary {
-    background-color: var(--brand-primary);
-
+    border-color: var(--brand-primary);
     border-radius: 5px;
 
-    color: #ffffff;
+    color: var(--brand-primary);
+  }
+  &--sm {
+    padding: .2em .5em;
   }
 }
