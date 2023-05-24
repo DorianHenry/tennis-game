@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import store from '../store/store';
 import { Game } from '../types';
-import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store/reducers';
+import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store';
 import { expectedNewSet, expectedNewSetWomen, gameTest } from './store.mock';
 import { GameStatus } from '../functions';
 describe('Game store', () => {

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { GameStatus, getStateByNumber } from '../../../functions';
-import { selectMatchStatus, selectNumberOfSets } from '../../../store/selectors';
-import { useAppSelector } from '../../hooks/redux';
-import { Label, LabelType } from '../ui/label';
+import { selectMatchStatus, selectNumberOfSets } from '../../../store';
+import { useAppSelector } from '../../hooks';
+import { Label, LabelType } from '../ui';
 import { GameIdContext } from '../../contexts';
 
 export function LabelGameStatus() {

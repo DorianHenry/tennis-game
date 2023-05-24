@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { Container } from './container';
+import { Container } from './Container';
 import { classNames } from '../../../functions';
 import { Link } from 'react-router-dom';
 

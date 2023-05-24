@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks';
 import { GameIdContext } from '../../contexts';
-import { selectWinner } from '../../../store/selectors';
-import { Avatar } from '../ui/avatar';
+import { selectWinner } from '../../../store';
+import { Avatar } from '../ui';
 
 export function WinnerCongratulation() {
   const gameId = useContext(GameIdContext);
@@ -11,7 +11,7 @@ export function WinnerCongratulation() {
     return <h3>Pas de joueur gagnant</h3>;
   }
   return (
-    <section className="winner-infos">
+    <section className="winner-infos stack-text">
       <Avatar avatarId={winner.avatarId} />
       <h2>{winner.name} gagne le match !</h2>
     </section>

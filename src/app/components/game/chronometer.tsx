@@ -1,8 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getTimeWithSeconds, classNames, getLocalTwoNumber } from '../../../functions';
 import { useContext, useEffect } from 'react';
-import { incerementChrono } from '../../../store/reducers';
-import { selectChrono } from '../../../store/selectors';
+import { incerementChrono, selectChrono } from '../../../store';
 import { GameIdContext } from '../../contexts';
 
 type Position = 'left' | 'center' | 'right';

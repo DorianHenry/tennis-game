@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, json } from 'react-router-dom';
 import store from '../../store/store';
-import { selectGame } from '../../store/selectors';
+import { selectGame } from '../../store';
 
 export function GameMatchLoader({ params }: LoaderFunctionArgs) {
   const { gameId } = params;

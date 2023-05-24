@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 import { GameStatus, classNames } from '../../../functions';
 import { GameIdContext, PlayerIndexContext } from '../../contexts';
-import { GamePointWithStore } from './game-points';
-import { GameSetWithStore } from './game-set';
-import { PlayerName } from './player';
-import { useAppSelector } from '../../hooks/redux';
-import { selectMatchStatus } from '../../../store/selectors';
+import { PlayerName, GameSetWithStore, GamePointWithStore } from './';
+import { useAppSelector } from '../../hooks';
+import { selectMatchStatus } from '../../../store';
 
 export function GameMatch() {
   return (

@@ -1,18 +1,17 @@
 import { useParams } from 'react-router-dom';
-import { PlayersPresentation } from './player';
-import { Card } from '../ui/card';
-import { ChronometerWithStore } from './chronometer';
-import { GameMatch } from './game-match';
-import { useAppSelector } from '../../hooks/redux';
-import { selectMatchStatus } from '../../../store/selectors';
-import { ButtonLink } from '../ui/button';
-import { LabelGameSets, LabelGameStatus } from './labels';
+import { Card, ButtonLink, Modal } from '../ui';
+import { selectMatchStatus } from '../../../store';
+import {
+  LabelGameSets,
+  LabelGameStatus,
+  GameMatch,
+  ChronometerWithStore,
+  PlayersPresentation,
+  WinnerCongratulation
+} from './';
 import { GameIdContext } from '../../contexts';
 import { GameStatus } from '../../../functions';
-import { useModalMatchWin } from '../../hooks/modal-match-win';
-import { Modal } from '../ui/modal';
-import { WinnerCongratulation } from './winner-congratulation';
-
+import { useModalMatchWin, useAppSelector } from '../../hooks';
 type Props = {
   matchStatus: GameStatus;
 };

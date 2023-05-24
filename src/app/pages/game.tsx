@@ -1,7 +1,6 @@
-import { GameDetailWithStore } from '../components/game/game-detail';
-import { Container } from '../components/ui/container';
-import { Layout } from '../components/ui/layout';
-import { useLocalStorage } from '../hooks/local-storage';
+import { GameDetailWithStore } from '../components/game';
+import { Container, Layout } from '../components/ui';
+import { useLocalStorage } from '../hooks';
 
 export function Game() {
   useLocalStorage();

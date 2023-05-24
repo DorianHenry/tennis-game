@@ -1,6 +1,5 @@
-import { Container } from '../components/ui/container';
-import { GameListWithStore } from '../components/game/game-list';
-import { Layout } from '../components/ui/layout';
+import { Container, Layout } from '../components/ui';
+import { GameListWithStore } from '../components/game';
 export function Home() {
   return (
     <Layout>

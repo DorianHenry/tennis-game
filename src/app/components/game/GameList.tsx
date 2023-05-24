@@ -1,8 +1,8 @@
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks';
 import type { GameId } from '../../../types';
-import { GameListItemWithStore } from './game-list-item';
-import { selectGamesIds } from '../../../store/selectors';
-import { Card } from '../ui/card';
+import { GameListItemWithStore } from './';
+import { selectGamesIds } from '../../../store';
+import { Card } from '../ui';
 export function GameListWithStore() {
   const gameIds = useAppSelector(selectGamesIds);
   return (

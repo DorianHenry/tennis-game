@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { getScorePoint } from '../../../functions';
-import { selectIsTieBreak, selectPlayerCurrentPoint } from '../../../store/selectors';
-import { useAppSelector } from '../../hooks/redux';
+import { selectIsTieBreak, selectPlayerCurrentPoint } from '../../../store';
+import { useAppSelector } from '../../hooks';
 import { GameIdContext, PlayerIndexContext } from '../../contexts';
 
 type PropsWithStore = {

@@ -1,14 +1,7 @@
-import { Avatar } from '../ui/avatar';
-import { useAppSelector } from '../../hooks/redux';
-import {
-  selectIsPlayerWinTheMatch,
-  selectPlayerAvatar,
-  selectPlayerName
-} from '../../../store/selectors';
-import { Button } from '../ui/button';
-
-import { useAddPoint } from '../../hooks/addPoint';
 import { useContext } from 'react';
+import { Avatar, Button } from '../ui';
+import { selectIsPlayerWinTheMatch, selectPlayerAvatar, selectPlayerName } from '../../../store';
+import { useAddPoint, useAppSelector } from '../../hooks';
 import { GameIdContext, PlayerIndexContext } from '../../contexts';
 
 type PlayerProps = {

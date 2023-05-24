@@ -1,11 +1,8 @@
 import { useContext } from 'react';
 import { GameIdContext } from '../../contexts';
 import type { GameId } from '../../../types';
-import { ButtonLink } from '../ui/button';
-import { Card } from '../ui/card';
-import { ChronometerWithStore } from './chronometer';
-import { LabelGameStatus } from './labels';
-import { PlayersPresentation } from './player';
+import { Card, ButtonLink } from '../ui';
+import { ChronometerWithStore, LabelGameStatus, PlayersPresentation } from './';
 
 export function GameListItemWithStore({ gameId }: { gameId: GameId }) {
   return (
