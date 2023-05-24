@@ -7,7 +7,7 @@ import './styles/_index.scss';
 import { Game } from './app/pages/game';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import { loadGame } from './app/loaders/game';
+import { GameMatchLoader } from './app/loaders/game';
 
 const router = createBrowserRouter([
   {
@@ -17,8 +17,8 @@ const router = createBrowserRouter([
   },
   {
     path: 'game/:gameId',
+    loader: GameMatchLoader,
     element: <Game />,
-    loader: loadGame,
     errorElement: <ErrorPage />
   }
 ]);

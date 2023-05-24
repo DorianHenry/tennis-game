@@ -7,7 +7,7 @@ export function GameListWithStore() {
   const gameIds = useAppSelector(selectGamesIds);
   return (
     <div className="stack-inner">
-      <h1>Liste des jeux </h1>
+      <h1>Liste des matchs </h1>
       <GameList gameIds={gameIds} />
     </div>
   );

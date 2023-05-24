@@ -14,7 +14,9 @@ export function ErrorPage() {
               <h1 className="error-page__title">{error.status}</h1>
               <p>{error.data}</p>
               <p>
-                <ButtonLink to="/">Retour au site</ButtonLink>
+                <ButtonLink to="/" btnType="secondary" size="lg">
+                  Retour aux jeux
+                </ButtonLink>
               </p>
             </div>
           </Card>
@@ -25,7 +27,12 @@ export function ErrorPage() {
   return (
     <Container className="error-page">
       <div className="stack-text">
-        <p>Désolé, quelque chose ne s'est pas bien passé</p>
+        <h2>Désolé une erreur est survenue</h2>
+        <div className="text-center">
+          <ButtonLink to={'/'} btnType="secondary" size="lg">
+            Retour aux jeux
+          </ButtonLink>
+        </div>
       </div>
     </Container>
   );
