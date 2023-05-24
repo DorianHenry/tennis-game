@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { Game, GameId, NewPlayer, NumberOfSets, StoreState } from '../types';
+import { Game, GameId, NewPlayer, NumberOfSets, StoreState } from '../types';
 import { gameTest } from '../values';
 import {
   getNewGame,
@@ -13,14 +13,8 @@ import { GameStatus } from '../enums';
 import { LOCAL_STORAGE_NAME } from '../constante';
 import { getRandomId } from '../functions/numbers';
 
-let gameList;
-try {
-  gameList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '') as Game[];
-} catch (e) {
-  gameList = gameTest;
-}
 const initialState: StoreState = {
-  gameList
+  gameList: (JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '[]') as Game[]) || gameTest
 };
 
 export const gamesSlice = createSlice({
@@ -30,8 +24,7 @@ export const gamesSlice = createSlice({
     incerementChrono(state, action: PayloadAction<{ gameId: GameId }>) {
       state.gameList = state.gameList.map((g) => {
         if (g.id === action.payload.gameId) {
-          const newChrono = g.chrono + 1;
-          return { ...g, chrono: newChrono };
+          return { ...g, chrono: g.chrono + 1 };
         }
         return g;
       });
@@ -47,16 +40,18 @@ export const gamesSlice = createSlice({
     addPoint(state, action: PayloadAction<{ gameId: GameId; playerIndex: number }>) {
       const game = state.gameList.find((g) => g.id === action.payload.gameId);
       if (!game) {
-        throw new Error(`game width id ${action.payload.gameId} does not exist`);
+        throw new Error(`game with id ${action.payload.gameId} does not exist`);
       }
 
       if (game.status === GameStatus.FINISH) {
         return;
       }
+
       const { winningPlayer, otherPlayer, otherPlayerIndex } = getPlayers(
         action.payload.playerIndex,
         game.players
       );
+
       const { newWinningScore, newOtherScore, winGame } = getPointScore({
         winningPlayer,
         otherPlayer,
@@ -67,27 +62,34 @@ export const gamesSlice = createSlice({
         if (g.id !== action.payload.gameId) {
           return g;
         }
+
         g.players[action.payload.playerIndex].currentPoint = newWinningScore;
         g.players[otherPlayerIndex].currentPoint = newOtherScore;
+
         if (!winGame) {
           return g;
         }
+
         const { newSet, winSet, winnerSetPoint, loserSetPoint } = getGameScore({
           winningPlayer,
           otherPlayer,
-          currentSet: game.currentSet,
-          isTieBreak: game.isTieBreak
+          currentSet: game.currentSet
         });
+
         g.players[action.payload.playerIndex].sets = newSet;
         g.isTieBreak = isTieBreak(winnerSetPoint, loserSetPoint);
+
         if (!winSet) {
           return g;
         }
+
         const winMatch = isWinningMatch(newSet, game.numberOfSets);
+
         if (!winMatch) {
           g.currentSet++;
           return g;
         }
+
         g.winner = winningPlayer;
         g.status = GameStatus.FINISH;
         return g;
@@ -98,6 +100,7 @@ export const gamesSlice = createSlice({
     }
   }
 });
+
 export const { incerementChrono, addGame, addPoint, replaceAllGames } = gamesSlice.actions;
 
 export default gamesSlice.reducer;

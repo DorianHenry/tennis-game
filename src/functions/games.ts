@@ -30,6 +30,11 @@ export function getNewGame(
   numberOfSets: NumberOfSets,
   id: number
 ): Game {
+  const players: [Player, Player] = [
+    getNewPlayer(player1, numberOfSets),
+    getNewPlayer(player2, numberOfSets)
+  ];
+
   return {
     id,
     currentSet: 0,
@@ -37,7 +42,7 @@ export function getNewGame(
     isTieBreak: false,
     status: GameStatus.ONGOING,
     chrono: 0,
-    players: [getNewPlayer(player1, numberOfSets), getNewPlayer(player2, numberOfSets)]
+    players
   };
 }
 
@@ -46,12 +51,11 @@ export function getNewGame(
  */
 export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets): Player {
   const setsToPlay = numberOfSets === 2 ? 3 : 5;
-  const sets = Array.from({ length: setsToPlay }).map(() => {
-    return {
-      win: false,
-      point: 0
-    };
-  });
+  const sets: SetScore[] = Array.from({ length: setsToPlay }, () => ({
+    win: false,
+    point: 0
+  }));
+
   return {
     name: player.name,
     avatarId: player.avatarId,
@@ -76,16 +80,11 @@ export function getPointScore({
     return getTieBreakScore({ winningPlayerScore, otherPlayerScore });
   }
 
-  if (winningPlayerScore <= 2) {
+  const newWinningScore = winningPlayerScore + 1;
+
+  if (winningPlayerScore <= 2 || (otherPlayerScore <= 2 && winningPlayerScore < 3)) {
     return {
-      newWinningScore: winningPlayerScore + 1,
-      newOtherScore: otherPlayerScore,
-      winGame: false
-    };
-  }
-  if (otherPlayerScore <= 2 && winningPlayerScore < 3) {
-    return {
-      newWinningScore: winningPlayerScore + 1,
+      newWinningScore,
       newOtherScore: otherPlayerScore,
       winGame: false
     };
@@ -105,7 +104,7 @@ export function getPointScore({
 
   if (winningPlayerScore === 3 && otherPlayerScore === 3) {
     return {
-      newWinningScore: winningPlayerScore + 1,
+      newWinningScore,
       newOtherScore: otherPlayerScore,
       winGame: false
     };
@@ -127,6 +126,7 @@ export function getTieBreakScore({
 }): PlayerNewScore {
   const newWinningScore = winningPlayerScore + 1;
   const winGame = isTieBreakWin(newWinningScore, otherPlayerScore);
+
   if (winGame) {
     return {
       newWinningScore: 0,
@@ -134,6 +134,7 @@ export function getTieBreakScore({
       winGame
     };
   }
+
   return {
     newWinningScore,
     newOtherScore: otherPlayerScore,
@@ -156,9 +157,10 @@ export function getGameScore({
   winningPlayer,
   otherPlayer,
   currentSet
-}: PlayersPlaying & { currentSet: number }): PlayerNewSet {
+}: Omit<PlayersPlaying, 'isTieBreak'> & { currentSet: number }): PlayerNewSet {
   const playerSet = [...winningPlayer.sets];
   const loserSet = [...otherPlayer.sets];
+
   if (!playerSet) {
     throw new Error(`No set in index ${currentSet} found`);
   }
@@ -176,7 +178,7 @@ export function getGameScore({
   return {
     winnerSetPoint,
     loserSetPoint,
-    newSet: newSet,
+    newSet,
     winSet: winnerWinSet
   };
 }
@@ -188,6 +190,7 @@ export function isWinningMatch(sets: SetScore[], numberOfSets: NumberOfSets) {
   const numberOfVictory = sets.reduce((acc, cur) => {
     return cur.win ? acc + 1 : acc;
   }, 0);
+
   return numberOfVictory >= numberOfSets;
 }
 
@@ -198,6 +201,7 @@ function winSet(winnerSet: number, otherPlayerSet: number) {
   if (winnerSet === 7) {
     return true;
   }
+
   return winnerSet >= 6 && hasAtLeastTwoDifference(winnerSet, otherPlayerSet);
 }
 
@@ -211,6 +215,7 @@ export function getPlayers(
   const winningPlayer = players[winningPlayerIndex];
   const otherPlayerIndex = winningPlayerIndex === 0 ? 1 : 0;
   const otherPlayer = players[otherPlayerIndex];
+
   return {
     winningPlayer,
     otherPlayer,

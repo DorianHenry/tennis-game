@@ -1,24 +1,16 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 import type { GameId } from '../types';
-import { memoize } from 'proxy-memoize';
+import { memoize, memoizeWithArgs } from 'proxy-memoize';
 
-const selectGameById = (state: RootState, gameId: GameId) => {
+const selectGameById = memoizeWithArgs((state: RootState, gameId: GameId) => {
   const game = state.games.gameList.find((g) => g.id === gameId);
   if (!game) {
-    throw new Error(`Le match ${gameId} n existe pas`);
+    throw new Error(`Le match ${gameId} n'existe pas`);
   }
   return game;
-};
+});
 
-const selectPlayerByIndex = (state: RootState, gameId: GameId, playerIndex: number) => {
-  const game = selectGameById(state, gameId);
-  const player = game.players[playerIndex];
-  if (!player) {
-    throw new Error(`Le joueur avec l'index ${playerIndex} n'existe pas`);
-  }
-  return player;
-};
 export const selectGames = (state: RootState) => state.games.gameList;
 
 export const selectGame = createSelector([selectGameById], (game) => game);
@@ -27,6 +19,18 @@ export const selectChrono = createSelector([selectGameById], (game) => game.chro
 export const selectMatchStatus = createSelector([selectGameById], (game) => game.status);
 export const selectPlayers = createSelector([selectGameById], (game) => game.players);
 export const selectIsTieBreak = createSelector([selectGameById], (game) => game.isTieBreak);
+
+export const selectPlayerByIndex = memoizeWithArgs(
+  (state: RootState, gameId: GameId, playerIndex: number) => {
+    const game = selectGameById(state, gameId);
+    const player = game.players[playerIndex];
+    if (!player) {
+      throw new Error(`Le joueur avec l'index ${playerIndex} n'existe pas`);
+    }
+    return player;
+  }
+);
+
 export const selectPlayer = createSelector([selectPlayerByIndex], (player) => player);
 export const selectPlayerSets = createSelector([selectPlayerByIndex], (player) => player.sets);
 export const selectPlayerName = createSelector([selectPlayerByIndex], (player) => player.name);
@@ -38,5 +42,6 @@ export const selectPlayerCurrentPoint = createSelector(
   [selectPlayerByIndex],
   (player) => player.currentPoint
 );
+
 export const selectCurrentSet = createSelector([selectGameById], (game) => game.currentSet);
 export const selectNumberOfSets = createSelector([selectGameById], (game) => game.numberOfSets);

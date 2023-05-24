@@ -23,6 +23,7 @@ specifiers:
   typescript: ^5.0.2
   vite: ^4.3.2
   vitest: ^0.31.1
+  vitest-localstorage-mock: ^0.0.1
 
 dependencies:
   '@reduxjs/toolkit': 1.9.5_k4ae6lp43ej6mezo3ztvx6pykq
@@ -49,6 +50,7 @@ devDependencies:
   typescript: 5.0.4
   vite: 4.3.7_sass@1.62.1
   vitest: 0.31.1_sass@1.62.1
+  vitest-localstorage-mock: 0.0.1_vitest@0.31.1
 
 packages:
 
@@ -4175,6 +4177,14 @@ packages:
       sass: 1.62.1
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /vitest-localstorage-mock/0.0.1_vitest@0.31.1:
+    resolution: {integrity: sha512-jt8/URLM+aJWObVPWxDZwt/ZSl/JOKafYuITozDVoFHlgl99jjZ7Wdvsu8ryalFChlgsg1lOBicTQsHXJCpXuw==}
+    peerDependencies:
+      vitest: '*'
+    dependencies:
+      vitest: 0.31.1_sass@1.62.1
     dev: true
 
   /vitest/0.31.1_sass@1.62.1:
