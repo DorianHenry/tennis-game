@@ -1,13 +1,13 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getTimeWithSeconds } from '../../../functions/numbers';
 import { classNames, getLocalTwoNumber } from '../../../functions/string';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { incerementChrono } from '../../../store/reducers';
 import { selectChrono } from '../../../store/selectors';
+import { GameIdContext } from '../../contexts';
 
 type Position = 'left' | 'center' | 'right';
 type ChronoPropsStore = {
-  gameId: number;
   position?: Position;
   setTimer?: boolean;
 };
@@ -17,11 +17,8 @@ type ChronoProps = {
   position?: Position;
 };
 
-export function ChronometerWithStore({
-  gameId,
-  position = 'left',
-  setTimer = false
-}: ChronoPropsStore) {
+export function ChronometerWithStore({ position = 'left', setTimer = false }: ChronoPropsStore) {
+  const gameId = useContext(GameIdContext);
   const dispatch = useAppDispatch();
   const seconds = useAppSelector((s) => selectChrono(s, gameId));
   useEffect(() => {

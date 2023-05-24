@@ -1,22 +1,27 @@
+import { useContext } from 'react';
 import { classNames } from '../../../functions/string';
-
-import type { StoreGetGame, StoreGetPlayer } from '../../../types';
+import { PlayerIndexContext } from '../../contexts';
 import { GamePointWithStore } from './game-points';
 import { GameSetWithStore } from './game-set';
 import { PlayerName } from './player';
 
-export function GameMatch({ gameId }: StoreGetGame) {
+export function GameMatch() {
   return (
     <div className="game-match stack-inner">
       <section>
         {Array.from({ length: 2 }).map((_, i) => {
-          return <PlayerMatchScore gameId={gameId} key={`player-match-${i}`} playerIndex={i} />;
+          return (
+            <PlayerIndexContext.Provider key={`player-match-${i}`} value={i}>
+              <PlayerMatchScore />
+            </PlayerIndexContext.Provider>
+          );
         })}
       </section>
     </div>
   );
 }
-function PlayerMatchScore({ playerIndex, gameId }: StoreGetPlayer) {
+function PlayerMatchScore() {
+  const playerIndex = useContext(PlayerIndexContext);
   const isFirstPlayer = playerIndex === 0;
   const className = classNames(
     'set-score',
@@ -25,13 +30,9 @@ function PlayerMatchScore({ playerIndex, gameId }: StoreGetPlayer) {
   );
   return (
     <div className="game-match__item">
-      <PlayerName className="game-match__player" gameId={gameId} playerIndex={playerIndex} />
-      <GamePointWithStore
-        className={`${className} set-score--point`}
-        gameId={gameId}
-        playerIndex={playerIndex}
-      />
-      <GameSetWithStore className={className} gameId={gameId} playerIndex={playerIndex} />
+      <PlayerName className="game-match__player" />
+      <GamePointWithStore className={`${className} set-score--point`} />
+      <GameSetWithStore className={className} />
     </div>
   );
 }

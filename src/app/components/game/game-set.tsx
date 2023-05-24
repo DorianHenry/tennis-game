@@ -1,9 +1,11 @@
-import type { SetScore, StoreGetPlayer } from '../../../types';
+import type { SetScore } from '../../../types';
 import { selectCurrentSet, selectPlayerSets } from '../../../store/selectors';
 import { useAppSelector } from '../../hooks/redux';
 import { classNames } from '../../../functions/string';
+import { useContext } from 'react';
+import { GameIdContext, PlayerIndexContext } from '../../contexts';
 
-type Props = StoreGetPlayer & {
+type Props = {
   className?: string;
 };
 
@@ -13,7 +15,9 @@ type SetProps = {
   currentSet: number;
   index: number;
 };
-export function GameSetWithStore({ gameId, playerIndex, className = '' }: Props) {
+export function GameSetWithStore({ className = '' }: Props) {
+  const gameId = useContext(GameIdContext);
+  const playerIndex = useContext(PlayerIndexContext);
   const sets = useAppSelector((s) => selectPlayerSets(s, gameId, playerIndex));
   const currentSet = useAppSelector((s) => selectCurrentSet(s, gameId));
   return (

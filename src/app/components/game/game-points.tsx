@@ -1,9 +1,10 @@
+import { useContext } from 'react';
 import { getScorePoint } from '../../../functions/string';
 import { selectIsTieBreak, selectPlayerCurrentPoint } from '../../../store/selectors';
-import { StoreGetPlayer } from '../../../types';
 import { useAppSelector } from '../../hooks/redux';
+import { GameIdContext, PlayerIndexContext } from '../../contexts';
 
-type PropsWithStore = StoreGetPlayer & {
+type PropsWithStore = {
   className?: string;
 };
 
@@ -12,7 +13,9 @@ type Props = Omit<PropsWithStore, 'gameId' | 'playerIndex'> & {
   isTieBreak: boolean;
 };
 
-export function GamePointWithStore({ gameId, playerIndex, className = '' }: PropsWithStore) {
+export function GamePointWithStore({ className = '' }: PropsWithStore) {
+  const gameId = useContext(GameIdContext);
+  const playerIndex = useContext(PlayerIndexContext);
   const currentPoint = useAppSelector((s) => selectPlayerCurrentPoint(s, gameId, playerIndex));
   const isTieBreak = useAppSelector((s) => selectIsTieBreak(s, gameId));
   return <GamePoint className={className} currentPoint={currentPoint} isTieBreak={isTieBreak} />;

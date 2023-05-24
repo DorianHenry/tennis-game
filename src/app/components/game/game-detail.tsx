@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import type { StoreGetGame } from '../../../types';
 import { PlayersPresentation } from './player';
 import { Card } from '../ui/card';
 import { ChronometerWithStore } from './chronometer';
@@ -9,8 +8,9 @@ import { selectMatchStatus } from '../../../store/selectors';
 import { GameStatus } from '../../../enums';
 import { ButtonLink } from '../ui/button';
 import { LabelGameSets, LabelGameStatus } from './labels';
+import { GameIdContext } from '../../contexts';
 
-type Props = StoreGetGame & {
+type Props = {
   matchStatus: GameStatus;
 };
 export function GameDetailWithStore() {
@@ -20,10 +20,14 @@ export function GameDetailWithStore() {
   }
   const gameIdN = parseInt(gameId, 10);
   const matchStatus = useAppSelector((s) => selectMatchStatus(s, gameIdN));
-  return <GameDetail gameId={gameIdN} matchStatus={matchStatus} />;
+  return (
+    <GameIdContext.Provider value={gameIdN}>
+      <GameDetail matchStatus={matchStatus} />
+    </GameIdContext.Provider>
+  );
 }
 
-export function GameDetail({ gameId, matchStatus }: Props) {
+export function GameDetail({ matchStatus }: Props) {
   const isMatchFinish = matchStatus === GameStatus.FINISH;
   return (
     <div className="stack-section">
@@ -33,9 +37,9 @@ export function GameDetail({ gameId, matchStatus }: Props) {
       <div className="mw-800 mx-auto w-100">
         <Card classNameBody="stack-text">
           <div className="text-center">
-            <LabelGameStatus gameId={gameId} />
+            <LabelGameStatus />
           </div>
-          <PlayersPresentation gameId={gameId} showAddPoint={!isMatchFinish} />
+          <PlayersPresentation showAddPoint={!isMatchFinish} />
         </Card>
       </div>
       <div className="stack-inner">
@@ -43,10 +47,10 @@ export function GameDetail({ gameId, matchStatus }: Props) {
           <section className="grid-game-match__score stack-text">
             <header className="flex-between">
               <h2>Tableau du score</h2>
-              <LabelGameSets gameId={gameId} />
+              <LabelGameSets />
             </header>
             <Card>
-              <GameMatch gameId={gameId} />
+              <GameMatch />
             </Card>
           </section>
           <aside className="stack-text">
@@ -54,7 +58,7 @@ export function GameDetail({ gameId, matchStatus }: Props) {
               <h2>Chrono</h2>
             </header>
             <Card>
-              <ChronometerWithStore position="center" gameId={gameId} setTimer={!isMatchFinish} />
+              <ChronometerWithStore position="center" setTimer={!isMatchFinish} />
             </Card>
           </aside>
         </div>
