@@ -1,4 +1,4 @@
-import { getAvatar } from '../../../functions/string';
+import { getAvatar } from '../../../functions';
 import type { AvatarId } from '../../../types';
 
 type Props = {

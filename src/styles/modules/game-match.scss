@@ -3,15 +3,8 @@
   &__item {
     display: grid;
 
-    grid-template-columns: 140px 70px repeat(5, 50px);
     align-items: center;
     gap: 1em;
-  }
-  &__player {
-    padding-top: .5em;
-    padding-bottom: .5em;
-
-    border-right: 1px solid #000000;
   }
 }
 
@@ -32,16 +25,55 @@
     background-color: var(--brand-secondary);
   }
 
-  &--top {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-  }
-  &--bottom {
-    border-bottom-right-radius: 15px;
 
-    border-bottom-left-radius: 15px;
-  }
   &--point {
     background-color: var(--gray-lighter);
+  }
+}
+
+@include up(650) {
+  .game-match {
+    &__item {
+      grid-template-columns: 140px repeat(6, 50px);
+    }
+    &__player {
+      padding-top: .5em;
+      padding-bottom: .5em;
+
+      border-right: 1px solid #000000;
+    }
+  }
+  .set-score {
+    &--top {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+    &--bottom {
+      border-bottom-right-radius: 15px;
+
+      border-bottom-left-radius: 15px;
+    }
+  }
+}
+@include down(649) {
+  .game-match {
+    display: grid;
+
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    &__item {
+      gap: .5rem;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    &__player {
+      margin-bottom: .5rem;
+
+      grid-column: span 6;
+    }
+  }
+  .set-score {
+    padding: .5rem;
+
+    border-radius: 15px;
   }
 }

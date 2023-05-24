@@ -18,16 +18,19 @@
 }
 
 .grid-game-match {
+@include up(1200) {
+    grid-template-columns: repeat(3, 1fr);
+    &__score {
+      grid-column: span 2;
+    }
+  }
+
   display: grid;
 
   margin-right: auto;
   margin-left: auto;
 
   gap: 2rem 7rem;
-  grid-template-columns: repeat(3, 1fr);
-  &__score {
-    grid-column: span 2;
-  }
   &__chrono {
     display: flex;
 

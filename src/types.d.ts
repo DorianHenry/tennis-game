@@ -13,6 +13,7 @@ export type SetScore = {
 
 export type Player = {
   name: string;
+  winTheMatch: boolean;
   hasService: boolean;
   currentPoint: Point;
   avatarId: AvatarId;

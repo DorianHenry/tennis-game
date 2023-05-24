@@ -1,6 +1,6 @@
-import { GameStatus } from '../enums';
 import { Game, Player, SetScore, NewPlayer, NumberOfSets } from '../types';
 import { hasAtLeastTwoDifference } from './numbers';
+import { GameStatus } from './string';
 
 type PlayersPlaying = {
   winningPlayer: Player;
@@ -57,6 +57,7 @@ export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets): Pla
   }));
 
   return {
+    winTheMatch: false,
     name: player.name,
     avatarId: player.avatarId,
     hasService: true,
@@ -221,4 +222,8 @@ export function getPlayers(
     otherPlayer,
     otherPlayerIndex
   };
+}
+
+export function isPlayerTheWinner(winner: Player | undefined, player: Player) {
+  return winner !== undefined && winner.sets === player.sets;
 }

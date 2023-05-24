@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
+  GameStatus,
   classNames,
   getAvatar,
   getLocalTwoNumber,
   getScorePoint,
   getStateByNumber
-} from '../functions/string';
-import { GameStatus } from '../enums';
+} from '../functions';
 
 describe('string methods', () => {
   describe('className', () => {

@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import { GameStatus } from '../../../enums';
-import { getStateByNumber } from '../../../functions/string';
+import { GameStatus, getStateByNumber } from '../../../functions';
 import { selectMatchStatus, selectNumberOfSets } from '../../../store/selectors';
 import { useAppSelector } from '../../hooks/redux';
 import { Label, LabelType } from '../ui/label';

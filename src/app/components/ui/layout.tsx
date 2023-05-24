@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Container } from './container';
-import { classNames } from '../../../functions/string';
+import { classNames } from '../../../functions';
 import { Link } from 'react-router-dom';
 
 type Props = {

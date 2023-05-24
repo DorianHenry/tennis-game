@@ -1,7 +1,7 @@
 import type { SetScore } from '../../../types';
 import { selectCurrentSet, selectPlayerSets } from '../../../store/selectors';
 import { useAppSelector } from '../../hooks/redux';
-import { classNames } from '../../../functions/string';
+import { classNames } from '../../../functions';
 import { useContext } from 'react';
 import { GameIdContext, PlayerIndexContext } from '../../contexts';
 

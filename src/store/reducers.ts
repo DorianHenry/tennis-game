@@ -1,20 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Game, GameId, NewPlayer, NumberOfSets, StoreState } from '../types';
 import { gameTest } from '../values';
+import { LOCAL_STORAGE_NAME } from '../constante';
 import {
+  getRandomId,
+  GameStatus,
   getNewGame,
   getPointScore,
   getPlayers,
   getGameScore,
   isWinningMatch,
   isTieBreak
-} from '../functions/games';
-import { GameStatus } from '../enums';
-import { LOCAL_STORAGE_NAME } from '../constante';
-import { getRandomId } from '../functions/numbers';
+} from '../functions';
 
 const initialState: StoreState = {
-  gameList: (JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || '[]') as Game[]) || gameTest
+  gameList: JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_NAME) || JSON.stringify(gameTest)
+  ) as Game[]
 };
 
 export const gamesSlice = createSlice({
@@ -91,6 +93,7 @@ export const gamesSlice = createSlice({
         }
 
         g.winner = winningPlayer;
+        g.players[action.payload.playerIndex].winTheMatch = true;
         g.status = GameStatus.FINISH;
         return g;
       });

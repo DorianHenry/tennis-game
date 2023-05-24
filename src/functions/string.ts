@@ -1,5 +1,9 @@
-import { GameStatus } from '../enums';
 import { AvatarId, Point } from '../types';
+
+export enum GameStatus {
+  ONGOING,
+  FINISH
+}
 
 export const GameStatusMap = new Map<GameStatus, string>([
   [GameStatus.ONGOING, 'En cours'],

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { getScorePoint } from '../../../functions/string';
+import { getScorePoint } from '../../../functions';
 import { selectIsTieBreak, selectPlayerCurrentPoint } from '../../../store/selectors';
 import { useAppSelector } from '../../hooks/redux';
 import { GameIdContext, PlayerIndexContext } from '../../contexts';

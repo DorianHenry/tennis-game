@@ -1,5 +1,5 @@
+import { GameStatus } from '../functions';
 import { Game, SetScore } from '../types';
-import { GameStatus } from '../enums';
 
 export const gameTest: Game[] = [
   {
@@ -13,6 +13,7 @@ export const gameTest: Game[] = [
       {
         name: 'John',
         hasService: true,
+        winTheMatch: false,
         avatarId: 3,
         sets: [
           {
@@ -33,6 +34,7 @@ export const gameTest: Game[] = [
       {
         name: 'Jason',
         hasService: false,
+        winTheMatch: false,
         avatarId: 4,
         sets: [
           {
@@ -63,6 +65,7 @@ export const gameTest: Game[] = [
       {
         name: 'Adrien',
         hasService: true,
+        winTheMatch: false,
         avatarId: 1,
         sets: [
           {
@@ -91,6 +94,7 @@ export const gameTest: Game[] = [
       {
         name: 'Vincent',
         hasService: false,
+        winTheMatch: false,
         avatarId: 2,
         sets: [
           {

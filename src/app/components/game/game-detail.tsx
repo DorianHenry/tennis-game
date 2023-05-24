@@ -5,10 +5,10 @@ import { ChronometerWithStore } from './chronometer';
 import { GameMatch } from './game-match';
 import { useAppSelector } from '../../hooks/redux';
 import { selectMatchStatus } from '../../../store/selectors';
-import { GameStatus } from '../../../enums';
 import { ButtonLink } from '../ui/button';
 import { LabelGameSets, LabelGameStatus } from './labels';
 import { GameIdContext } from '../../contexts';
+import { GameStatus } from '../../../functions';
 
 type Props = {
   matchStatus: GameStatus;
@@ -64,7 +64,7 @@ export function GameDetail({ matchStatus }: Props) {
         </div>
       </div>
       <footer className="text-center">
-        <ButtonLink to={`/`} size="lg">
+        <ButtonLink to={`/`} size="lg" btnType="secondary">
           Retour aux matchs
         </ButtonLink>
       </footer>

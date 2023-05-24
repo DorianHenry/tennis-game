@@ -1,11 +1,21 @@
 .player {
-  @include up(501) {
+  @include up(500) {
     &__name {
       max-width: 150px;
     }
   }
 
-@include down(700) {
+@include up(700) {
+    &--inverse {
+      .player {
+        &__name {
+          justify-self: end;
+        }
+      }
+    }
+  }
+
+@include down(699) {
     flex-direction: column;
     &__avatar {
       order: 1;
@@ -15,6 +25,9 @@
     }
     &--inverse {
       justify-content: end;
+    }
+    &__name {
+      justify-self: center;
     }
   }  display: flex;
 
@@ -41,9 +54,7 @@
       &__avatar {
         order: 1;
       }
-      &__name {
-        justify-self: end;
-      }
+
       &__info {
         order: 2;
       }

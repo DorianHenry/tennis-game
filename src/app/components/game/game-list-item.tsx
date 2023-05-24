@@ -27,7 +27,7 @@ export function GameListItem() {
         <section>
           <PlayersPresentation />
         </section>
-        <footer>
+        <footer className="text-right">
           <ButtonLink to={`game/${gameId}`}>Voir le match</ButtonLink>
         </footer>
       </div>

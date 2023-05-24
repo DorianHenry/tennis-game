@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { classNames } from '../../../functions/string';
+import { classNames } from '../../../functions';
 
 type Props = {
   className?: string;

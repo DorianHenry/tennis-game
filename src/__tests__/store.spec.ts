@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import store from '../store/store';
 import { Game } from '../types';
-import { GameStatus } from '../enums';
 import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store/reducers';
 import { expectedNewSet, expectedNewSetWomen, gameTest } from './store.mock';
+import { GameStatus } from '../functions';
 describe('Game store', () => {
   let games: Game[];
   let updatedGame: Game;
@@ -49,6 +49,7 @@ describe('Game store', () => {
     expect(lastGame.players[1].name).toBe('Boris');
     expect(lastGame.players[0].avatarId).toBe(3);
     expect(lastGame.players[1].avatarId).toBe(5);
+    expect(lastGame.players[0].winTheMatch).toBe(false);
     expect(lastGame.players[1].sets).toEqual(expectedNewSet);
     expect(lastGame.players[0].sets).toEqual(expectedNewSet);
     expect(lastGame.id).toBeDefined();
@@ -136,7 +137,7 @@ describe('Game store', () => {
     expect(updatedGame.players[1].currentPoint).toBe(0);
   });
 
-  it.only('should handle tieBreak', () => {
+  it('should handle tieBreak', () => {
     games = store.getState().games.gameList;
     updatedGame = games.find((g) => g.id === 2) as Game;
     expect(updatedGame.isTieBreak).toBe(false);
@@ -267,6 +268,7 @@ describe('Game store', () => {
 
     expect(updatedGame.status).toBe(GameStatus.ONGOING);
     expect(updatedGame.winner).toBeUndefined();
+    expect(updatedGame.players[0].winTheMatch).toBe(false);
 
     for (let i = 0; i < 25; i++) {
       store.dispatch(addPoint({ gameId: cGame.id, playerIndex: 0 }));
@@ -275,6 +277,7 @@ describe('Game store', () => {
     games = store.getState().games.gameList;
     updatedGame = games.find((g) => g.id === 2) as Game;
     expect(updatedGame.winner).toEqual(updatedGame.players[0]);
+    expect(updatedGame.players[0].winTheMatch).toBe(true);
     expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
   it('should handle all the game', () => {
@@ -342,6 +345,7 @@ describe('Game store', () => {
     ]);
     expect(updatedGame.currentSet).toBe(2);
     expect(updatedGame.winner).toBe(updatedGame.players[1]);
+    expect(updatedGame.players[1].winTheMatch).toBe(true);
     expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
 });

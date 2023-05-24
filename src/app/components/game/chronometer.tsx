@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getTimeWithSeconds } from '../../../functions/numbers';
-import { classNames, getLocalTwoNumber } from '../../../functions/string';
+import { getTimeWithSeconds, classNames, getLocalTwoNumber } from '../../../functions';
 import { useContext, useEffect } from 'react';
 import { incerementChrono } from '../../../store/reducers';
 import { selectChrono } from '../../../store/selectors';

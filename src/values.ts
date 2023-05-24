@@ -1,5 +1,5 @@
+import { GameStatus } from './functions';
 import { Game } from './types';
-import { GameStatus } from './enums';
 
 export const gameTest: Game[] = [
   {
@@ -12,6 +12,7 @@ export const gameTest: Game[] = [
     players: [
       {
         name: 'Sabrina',
+        winTheMatch: false,
         hasService: true,
         avatarId: 3,
         sets: [
@@ -32,6 +33,7 @@ export const gameTest: Game[] = [
       },
       {
         name: 'Marine',
+        winTheMatch: false,
         hasService: false,
         avatarId: 4,
         sets: [
@@ -62,6 +64,7 @@ export const gameTest: Game[] = [
     players: [
       {
         name: 'Victoria',
+        winTheMatch: false,
         hasService: true,
         avatarId: 1,
         sets: [
@@ -91,6 +94,7 @@ export const gameTest: Game[] = [
       {
         name: 'Julia',
         hasService: false,
+        winTheMatch: false,
         avatarId: 2,
         sets: [
           {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getTimeWithSeconds, hasAtLeastTwoDifference } from '../functions/numbers';
+import { getTimeWithSeconds, hasAtLeastTwoDifference } from '../functions';
 
 describe('numbers helpers', () => {
   it('should calculate if has at least two difference between two numbers', () => {

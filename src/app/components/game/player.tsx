@@ -1,7 +1,10 @@
 import { Avatar } from '../ui/avatar';
-import type { GameId } from '../../../types';
 import { useAppSelector } from '../../hooks/redux';
-import { selectPlayerAvatar, selectPlayerName } from '../../../store/selectors';
+import {
+  selectIsPlayerWinTheMatch,
+  selectPlayerAvatar,
+  selectPlayerName
+} from '../../../store/selectors';
 import { Button } from '../ui/button';
 
 import { useAddPoint } from '../../hooks/addPoint';
@@ -65,5 +68,17 @@ export function PlayerAvatar() {
   const playerIndex = useContext(PlayerIndexContext);
   const gameId = useContext(GameIdContext);
   const avatarId = useAppSelector((s) => selectPlayerAvatar(s, gameId, playerIndex));
+  const winTheMatch = useAppSelector((s) => selectIsPlayerWinTheMatch(s, gameId, playerIndex));
+  if (winTheMatch) {
+    return (
+      <div className="avatar-winner">
+        <div className="avatar-winner__illu">
+          <img src="/trophy.svg" alt="trophé" />
+        </div>
+
+        <Avatar avatarId={avatarId} />
+      </div>
+    );
+  }
   return <Avatar avatarId={avatarId} />;
 }
