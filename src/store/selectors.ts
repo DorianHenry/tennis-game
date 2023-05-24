@@ -45,6 +45,7 @@ export const selectPlayerCurrentPoint = createSelector(
 
 export const selectCurrentSet = createSelector([selectGameById], (game) => game.currentSet);
 export const selectNumberOfSets = createSelector([selectGameById], (game) => game.numberOfSets);
+export const selectWinner = createSelector([selectGameById], (game) => game.winner);
 export const selectIsPlayerWinTheMatch = createSelector(
   [selectPlayerByIndex],
   (player) => player.winTheMatch

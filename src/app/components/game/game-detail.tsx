@@ -9,6 +9,9 @@ import { ButtonLink } from '../ui/button';
 import { LabelGameSets, LabelGameStatus } from './labels';
 import { GameIdContext } from '../../contexts';
 import { GameStatus } from '../../../functions';
+import { useModalMatchWin } from '../../hooks/modal-match-win';
+import { Modal } from '../ui/modal';
+import { WinnerCongratulation } from './winner-congratulation';
 
 type Props = {
   matchStatus: GameStatus;
@@ -20,9 +23,16 @@ export function GameDetailWithStore() {
   }
   const gameIdN = parseInt(gameId, 10);
   const matchStatus = useAppSelector((s) => selectMatchStatus(s, gameIdN));
+  const [isModalOpen, setModalOpen] = useModalMatchWin({ gameId: gameIdN });
+  const handleVisibleChange = () => {
+    setModalOpen(false);
+  };
   return (
     <GameIdContext.Provider value={gameIdN}>
       <GameDetail matchStatus={matchStatus} />
+      <Modal visible={isModalOpen} onVisibilityChange={handleVisibleChange}>
+        <WinnerCongratulation />
+      </Modal>
     </GameIdContext.Provider>
   );
 }
