@@ -2,12 +2,18 @@ import { useAppSelector } from '../../hooks';
 import type { GameId } from '../../../types';
 import { GameListItemWithStore } from './';
 import { selectGamesIds } from '../../../store';
-import { Card } from '../ui';
+import { ButtonLink, Card } from '../ui';
 export function GameListWithStore() {
   const gameIds = useAppSelector(selectGamesIds);
   return (
     <div className="stack-inner">
-      <h1>Liste des matchs </h1>
+      <div className="flex-between">
+        <h1>Liste des matchs </h1>
+        <ButtonLink to={'/create-game'} btnType="secondary">
+          Ajouter un match
+        </ButtonLink>
+      </div>
+
       <GameList gameIds={gameIds} />
     </div>
   );
