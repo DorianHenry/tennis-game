@@ -13,7 +13,7 @@ export function WinnerCongratulation() {
   return (
     <section className="winner-infos stack-text">
       <Avatar avatarId={winner.avatarId} />
-      <h2>{winner.name} gagne le match !</h2>
+      <h2>{winner.name} a gagné le match !</h2>
     </section>
   );
 }
