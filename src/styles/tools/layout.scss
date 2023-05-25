@@ -56,3 +56,10 @@ body {
   justify-content: space-between;
   gap: 1rem;
 }
+.flex-inline {
+  display: flex;
+
+  align-items: center;
+  gap: .6em;
+  flex-wrap: wrap;
+}

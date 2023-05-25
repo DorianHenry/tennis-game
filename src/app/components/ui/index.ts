@@ -5,4 +5,4 @@ export * from './Container';
 export * from './Label';
 export * from './Layout';
 export * from './Modal';
-export * from './FormTextInput';
+export * from './form';
