@@ -43,6 +43,10 @@ export const selectPlayerCurrentPoint = createSelector(
   (player) => player.currentPoint
 );
 
+export const selectPlayerHasService = createSelector([selectPlayerByIndex], (player) => {
+  return player.hasService;
+});
+
 export const selectCurrentSet = createSelector([selectGameById], (game) => game.currentSet);
 export const selectNumberOfSets = createSelector([selectGameById], (game) => game.numberOfSets);
 export const selectWinner = createSelector([selectGameById], (game) => game.winner);

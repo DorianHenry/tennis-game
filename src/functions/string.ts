@@ -36,8 +36,8 @@ export const avatarMap = new Map<AvatarId, string>([
   [1, '/avatars/girl-1.svg'],
   [2, '/avatars/girl-2.svg'],
   [3, '/avatars/girl-3.svg'],
-  [4, '/avatars/girl-4.svg'],
-  [5, '/avatars/girl-5.svg']
+  [4, '/avatars/boy-1.svg'],
+  [5, '/avatars/boy-2.svg']
 ]);
 
 /**

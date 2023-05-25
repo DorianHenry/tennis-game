@@ -11,7 +11,7 @@ export const createGameSchema = object()
         name: string()
           .required('Le nom requis')
           .min(2, 'Le nom doit contenir au moins 2 caractères')
-          .max(15, 'Le nom doit contenir maximum 15 caractères'),
+          .max(13, 'Le nom doit contenir maximum 13 caractères'),
         avatarId: number()
           .required(`L'avatar requis`)
           .oneOf([1, 2, 3, 4, 5], `L'avatar choisi n'existe pas !`)

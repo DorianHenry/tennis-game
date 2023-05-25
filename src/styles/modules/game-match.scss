@@ -34,7 +34,7 @@
 @include up(650) {
   .game-match {
     &__item {
-      grid-template-columns: 140px repeat(6, 50px);
+      grid-template-columns: 160px repeat(6, 50px);
     }
     &__player {
       padding-top: .5em;

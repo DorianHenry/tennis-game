@@ -3,7 +3,7 @@ import { GameStatus, classNames } from '../../../functions';
 import { GameIdContext, PlayerIndexContext } from '../../contexts';
 import { PlayerName, GameSetWithStore, GamePointWithStore } from './';
 import { useAppSelector } from '../../hooks';
-import { selectMatchStatus } from '../../../store';
+import { selectMatchStatus, selectPlayerHasService } from '../../../store';
 
 export function GameMatch() {
   return (
@@ -22,6 +22,7 @@ function PlayerMatchScore() {
   const gameId = useContext(GameIdContext);
   const playerIndex = useContext(PlayerIndexContext);
   const gameStatus = useAppSelector((s) => selectMatchStatus(s, gameId));
+  const hasService = useAppSelector((s) => selectPlayerHasService(s, gameId, playerIndex));
   const isFirstPlayer = playerIndex === 0;
   const className = classNames(
     'set-score',
@@ -30,7 +31,12 @@ function PlayerMatchScore() {
   );
   return (
     <div className="game-match__item">
-      <PlayerName className="game-match__player" />
+      <div className="flex-inline game-match__player">
+        <PlayerName />
+        {hasService && gameStatus !== GameStatus.FINISH && (
+          <img width="15" src="/ball.svg" alt="service" />
+        )}
+      </div>
 
       <GameSetWithStore className={className} />
       {gameStatus !== GameStatus.FINISH && (

@@ -348,4 +348,74 @@ describe('Game store', () => {
     expect(updatedGame.players[1].winTheMatch).toBe(true);
     expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
+
+  it.only('should handle service change', async () => {
+    store.dispatch(
+      addGame({
+        numberOfSets: 3,
+        player1: { name: 'Thomas', avatarId: 3 },
+        player2: { name: 'Boris', avatarId: 5 }
+      })
+    );
+    games = store.getState().games.gameList;
+    let lastGame = games[games.length - 1];
+    expect(lastGame.players[0].hasService).toBe(true);
+    expect(lastGame.players[1].hasService).toBe(false);
+
+    for (let i = 0; i < 4; i++) {
+      store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 0 }));
+    }
+    games = store.getState().games.gameList;
+    lastGame = games[games.length - 1];
+
+    expect(lastGame.players[0].hasService).toBe(false);
+    expect(lastGame.players[1].hasService).toBe(true);
+    for (let i = 0; i < 21; i++) {
+      store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 0 }));
+    }
+    for (let i = 0; i < 25; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 1 }));
+    }
+    games = store.getState().games.gameList;
+    lastGame = games[games.length - 1];
+
+    expect(lastGame.players[0].hasService).toBe(true);
+    expect(lastGame.players[1].hasService).toBe(false);
+
+    for (let i = 0; i < 23; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 0 }));
+    }
+    for (let i = 0; i < 23; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 1 }));
+    }
+    games = store.getState().games.gameList;
+    lastGame = games[games.length - 1];
+
+    for (let i = 0; i < 2; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 1 }));
+    }
+    for (let i = 0; i < 5; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 0 }));
+    }
+    games = store.getState().games.gameList;
+    lastGame = games[games.length - 1];
+
+    expect(lastGame.isTieBreak).toBe(true);
+    expect(lastGame.players[0].hasService).toBe(false);
+    expect(lastGame.players[1].hasService).toBe(true);
+    for (let i = 0; i < 1; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 1 }));
+    }
+    games = store.getState().games.gameList;
+    lastGame = games[games.length - 1];
+    expect(lastGame.players[0].hasService).toBe(true);
+    expect(lastGame.players[1].hasService).toBe(false);
+    for (let i = 0; i < 1; i++) {
+      await store.dispatch(addPoint({ gameId: lastGame.id, playerIndex: 1 }));
+    }
+    games = store.getState().games.gameList;
+    lastGame = games[games.length - 1];
+    expect(lastGame.players[0].hasService).toBe(false);
+    expect(lastGame.players[1].hasService).toBe(true);
+  });
 });

@@ -68,6 +68,11 @@ export const gamesSlice = createSlice({
         g.players[action.payload.playerIndex].currentPoint = newWinningScore;
         g.players[otherPlayerIndex].currentPoint = newOtherScore;
 
+        if (g.isTieBreak) {
+          g.players[0].hasService = !g.players[0].hasService;
+          g.players[1].hasService = !g.players[1].hasService;
+        }
+
         if (!winGame) {
           return g;
         }
@@ -79,6 +84,9 @@ export const gamesSlice = createSlice({
         });
 
         g.players[action.payload.playerIndex].sets = newSet;
+        g.players[0].hasService = !g.players[0].hasService;
+        g.players[1].hasService = !g.players[1].hasService;
+
         g.isTieBreak = isTieBreak(winnerSetPoint, loserSetPoint);
 
         if (!winSet) {

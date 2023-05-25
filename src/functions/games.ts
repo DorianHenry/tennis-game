@@ -31,8 +31,8 @@ export function getNewGame(
   id: number
 ): Game {
   const players: [Player, Player] = [
-    getNewPlayer(player1, numberOfSets),
-    getNewPlayer(player2, numberOfSets)
+    getNewPlayer(player1, numberOfSets, 0),
+    getNewPlayer(player2, numberOfSets, 1)
   ];
 
   return {
@@ -49,18 +49,19 @@ export function getNewGame(
 /**
  * Return a new player object with default values
  */
-export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets): Player {
+export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets, index: number): Player {
   const setsToPlay = numberOfSets === 2 ? 3 : 5;
   const sets: SetScore[] = Array.from({ length: setsToPlay }, () => ({
     win: false,
     point: 0
   }));
+  const hasService = index === 0;
 
   return {
     winTheMatch: false,
     name: player.name,
     avatarId: player.avatarId,
-    hasService: true,
+    hasService,
     sets,
     currentPoint: 0
   };
