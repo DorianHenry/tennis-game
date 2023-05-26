@@ -349,7 +349,7 @@ describe('Game store', () => {
     expect(updatedGame.status).toBe(GameStatus.FINISH);
   });
 
-  it.only('should handle service change', async () => {
+  it('should handle service change', async () => {
     store.dispatch(
       addGame({
         numberOfSets: 3,

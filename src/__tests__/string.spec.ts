@@ -45,4 +45,37 @@ describe('string methods', () => {
       expect(getLocalTwoNumber(1.12)).toBe('01,12');
     });
   });
+  describe('getScorePoint', () => {
+    it('should get correct values', () => {
+      const [zero, one, two, three, four] = [
+        getScorePoint(0),
+        getScorePoint(1),
+        getScorePoint(2),
+        getScorePoint(3),
+        getScorePoint(4)
+      ];
+      expect(zero).toEqual('0');
+      expect(one).toEqual('15');
+      expect(two).toEqual('30');
+      expect(three).toEqual('40');
+      expect(four).toEqual('AD');
+    });
+  });
+  describe('get avatar', () => {
+    it('should get the correct avatar', () => {
+      const [one, two, three, four, five] = [
+        getAvatar(1),
+        getAvatar(2),
+        getAvatar(3),
+        getAvatar(4),
+        getAvatar(5)
+      ];
+
+      expect(one).toEqual('/avatars/girl-1.svg');
+      expect(two).toEqual('/avatars/girl-2.svg');
+      expect(three).toEqual('/avatars/girl-3.svg');
+      expect(four).toEqual('/avatars/boy-1.svg');
+      expect(five).toEqual('/avatars/boy-2.svg');
+    });
+  });
 });
