@@ -119,6 +119,9 @@ export function getPointScore({
   };
 }
 
+/**
+ * Returns the score of the tie break and if win the game
+ */
 export function getTieBreakScore({
   winningPlayerScore,
   otherPlayerScore
@@ -144,10 +147,16 @@ export function getTieBreakScore({
   };
 }
 
+/**
+ * Check if the tie break wins
+ */
 function isTieBreakWin(winningScore: number, otherScore: number) {
   return winningScore >= 7 && hasAtLeastTwoDifference(winningScore, otherScore);
 }
 
+/**
+ * Check if the game is in TieBreak
+ */
 export function isTieBreak(playerSet1: number, playerSet2: number) {
   return playerSet1 === 6 && playerSet2 === 6;
 }
@@ -225,6 +234,9 @@ export function getPlayers(
   };
 }
 
+/**
+ * Check if the player is the winner
+ */
 export function isPlayerTheWinner(winner: Player | undefined, player: Player) {
   return winner !== undefined && winner.sets === player.sets;
 }

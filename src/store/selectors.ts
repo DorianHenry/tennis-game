@@ -10,16 +10,13 @@ const selectGameById = memoizeWithArgs((state: RootState, gameId: GameId) => {
   }
   return game;
 });
-
 export const selectGames = (state: RootState) => state.games.gameList;
-
 export const selectGame = createSelector([selectGameById], (game) => game);
 export const selectGamesIds = memoize((state: RootState) => state.games.gameList.map((g) => g.id));
 export const selectChrono = createSelector([selectGameById], (game) => game.chrono);
 export const selectMatchStatus = createSelector([selectGameById], (game) => game.status);
 export const selectPlayers = createSelector([selectGameById], (game) => game.players);
 export const selectIsTieBreak = createSelector([selectGameById], (game) => game.isTieBreak);
-
 export const selectPlayerByIndex = memoizeWithArgs(
   (state: RootState, gameId: GameId, playerIndex: number) => {
     const game = selectGameById(state, gameId);
@@ -30,7 +27,6 @@ export const selectPlayerByIndex = memoizeWithArgs(
     return player;
   }
 );
-
 export const selectPlayer = createSelector([selectPlayerByIndex], (player) => player);
 export const selectPlayerSets = createSelector([selectPlayerByIndex], (player) => player.sets);
 export const selectPlayerName = createSelector([selectPlayerByIndex], (player) => player.name);
@@ -42,11 +38,9 @@ export const selectPlayerCurrentPoint = createSelector(
   [selectPlayerByIndex],
   (player) => player.currentPoint
 );
-
 export const selectPlayerHasService = createSelector([selectPlayerByIndex], (player) => {
   return player.hasService;
 });
-
 export const selectCurrentSet = createSelector([selectGameById], (game) => game.currentSet);
 export const selectNumberOfSets = createSelector([selectGameById], (game) => game.numberOfSets);
 export const selectWinner = createSelector([selectGameById], (game) => game.winner);

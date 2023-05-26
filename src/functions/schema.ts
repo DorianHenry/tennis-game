@@ -1,6 +1,9 @@
 import { object, array, string, number, InferType } from 'yup';
 
 export type CreateFormData = InferType<typeof createGameSchema>;
+/**
+ * Creation game schema validation
+ */
 export const createGameSchema = object()
   .shape({
     numberOfSets: number()

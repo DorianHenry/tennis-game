@@ -13,6 +13,9 @@ import {
   isTieBreak
 } from '../functions';
 
+/**
+ * Get the localStorage value, if not created get the initial value
+ */
 const initialState: StoreState = {
   gameList: JSON.parse(
     localStorage.getItem(LOCAL_STORAGE_NAME) || JSON.stringify(gameTest)
@@ -23,6 +26,9 @@ export const gamesSlice = createSlice({
   name: 'games',
   initialState,
   reducers: {
+    /**
+     * Increment one second to the chrono
+     */
     incerementChrono(state, action: PayloadAction<{ gameId: GameId }>) {
       state.gameList = state.gameList.map((g) => {
         if (g.id === action.payload.gameId) {
@@ -31,6 +37,9 @@ export const gamesSlice = createSlice({
         return g;
       });
     },
+    /**
+     * Create a new match
+     */
     addGame(
       state,
       action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer; numberOfSets: NumberOfSets }>
@@ -39,6 +48,9 @@ export const gamesSlice = createSlice({
       const newGame: Game = getNewGame(player1, player2, numberOfSets, getRandomId());
       state.gameList = [...state.gameList, newGame];
     },
+    /**
+     * Add a point the the match score
+     */
     addPoint(state, action: PayloadAction<{ gameId: GameId; playerIndex: number }>) {
       const game = state.gameList.find((g) => g.id === action.payload.gameId);
       if (!game) {
@@ -106,6 +118,9 @@ export const gamesSlice = createSlice({
         return g;
       });
     },
+    /**
+     * Reset all the matches with the game passed, used for unit testing
+     */
     replaceAllGames(state, action: PayloadAction<{ games: Game[] }>) {
       state.gameList = action.payload.games;
     }
