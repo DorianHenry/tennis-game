@@ -35,7 +35,7 @@ export const gameTest: Game[] = [
         name: 'Marine',
         winTheMatch: false,
         hasService: false,
-        avatarId: 4,
+        avatarId: 1,
         sets: [
           {
             win: false,
@@ -63,10 +63,10 @@ export const gameTest: Game[] = [
     chrono: 300,
     players: [
       {
-        name: 'Victoria',
+        name: 'Adrien',
         winTheMatch: false,
         hasService: true,
-        avatarId: 1,
+        avatarId: 5,
         sets: [
           {
             win: true,
@@ -92,10 +92,10 @@ export const gameTest: Game[] = [
         currentPoint: 3
       },
       {
-        name: 'Julia',
+        name: 'Thomas',
         hasService: false,
         winTheMatch: false,
-        avatarId: 2,
+        avatarId: 4,
         sets: [
           {
             win: false,

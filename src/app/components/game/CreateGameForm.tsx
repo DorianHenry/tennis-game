@@ -62,7 +62,7 @@ export function CreateGameForm() {
               <PlayerForm key={`player-form-${i}`} index={i} register={register} errors={errors} />
             );
           })}
-          <footer className="text-right">
+          <footer className="flex-inline flex-inline--right">
             <ButtonLink btnType="default" to={'/'} size="lg">
               Retour aux matchs
             </ButtonLink>

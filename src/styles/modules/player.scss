@@ -33,10 +33,10 @@
 
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1rem .5rem;
 
   &__name {
-    max-width: 120px;
+    max-width: 100%;
 
     overflow: hidden;
 

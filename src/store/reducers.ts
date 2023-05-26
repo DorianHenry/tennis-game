@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Game, GameId, NewPlayer, NumberOfSets, StoreState } from '../types';
-import { gameTest } from '../values';
+import { gameTest } from '../initial-values';
 import { LOCAL_STORAGE_NAME } from '../constante';
 import {
   getRandomId,

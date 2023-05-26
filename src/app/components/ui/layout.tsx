@@ -19,6 +19,7 @@ export function Layout({ children, className = '' }: PropsWithChildren<Props>) {
       </header>
 
       <main className="page-layout__main">{children}</main>
+      <div className="page-layout__illu"></div>
     </div>
   );
 }

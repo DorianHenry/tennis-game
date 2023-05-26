@@ -17,10 +17,17 @@
 }
 
 .avatar-selector {
-  display: grid;
+  @include up(600) {
+    grid-template-columns: repeat(5, 1fr);
+  } 
+@include down(599) {
+    > *:last-child {
+      grid-column: span 2;
+    }
+  }  display: grid;
 
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2,1fr);
+ gap: 1rem;
 }
 
 .avatar-radio {

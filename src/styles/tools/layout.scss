@@ -62,4 +62,7 @@ body {
   align-items: center;
   gap: .6em;
   flex-wrap: wrap;
+  &--right {
+    justify-content: end;
+  }
 }
