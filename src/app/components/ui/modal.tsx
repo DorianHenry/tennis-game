@@ -1,13 +1,13 @@
 import { ReactNode } from 'react';
 import { Content, Overlay, Root, Portal } from '@radix-ui/react-dialog';
 
-type ModalProps = {
+type Props = {
   children: ReactNode;
   visible: boolean;
   onVisibilityChange: (visibility: boolean) => void;
 };
 
-export function Modal({ children, visible, onVisibilityChange }: ModalProps) {
+export function Modal({ children, visible, onVisibilityChange }: Props) {
   return (
     <Root open={visible} onOpenChange={onVisibilityChange}>
       <Portal container={document.body}>

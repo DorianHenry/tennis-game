@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector, useIncrementChrono } from '../../hooks';
 import { getTimeWithSeconds, classNames, getLocalTwoNumber } from '../../../functions';
-import { useContext, useEffect } from 'react';
-import { incerementChrono, selectChrono } from '../../../store';
+import { useContext } from 'react';
+import { selectChrono } from '../../../store';
 import { GameIdContext } from '../../contexts';
 
 type Position = 'left' | 'center' | 'right';
@@ -17,18 +17,9 @@ type ChronoProps = {
 
 export function ChronometerWithStore({ position = 'left', setTimer = false }: ChronoPropsStore) {
   const gameId = useContext(GameIdContext);
-  const dispatch = useAppDispatch();
+
   const seconds = useAppSelector((s) => selectChrono(s, gameId));
-  useEffect(() => {
-    if (setTimer) {
-      const interval = setInterval(async () => {
-        await dispatch(incerementChrono({ gameId }));
-      }, 1000);
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  });
+  useIncrementChrono({ setTimer, gameId });
 
   if (seconds !== undefined) {
     return <Chronometer duration={seconds} position={position} />;
