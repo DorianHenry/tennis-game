@@ -7,11 +7,11 @@ type Props = {
 };
 
 export function Card({ children, className = '', classNameBody = '' }: PropsWithChildren<Props>) {
-  const classNameConact = classNames('card', className);
-  const classNameBodyConact = classNames('card__body', classNameBody);
+  className = classNames('card', className);
+  classNameBody = classNames('card__body', classNameBody);
   return (
-    <div className={classNameConact}>
-      <div className={classNameBodyConact}>{children}</div>
+    <div className={className}>
+      <div className={classNameBody}>{children}</div>
     </div>
   );
 }

@@ -68,7 +68,7 @@ export function getNewPlayer(player: NewPlayer, numberOfSets: NumberOfSets, inde
 }
 
 /**
- * Return the winner and otherPlayer point score and if the points wins the game
+ * Return the winner, otherPlayer point score and if the points wins the game
  */
 export function getPointScore({
   winningPlayer,
@@ -120,7 +120,7 @@ export function getPointScore({
 }
 
 /**
- * Returns the score of the tie break and if win the game
+ * Returns the score of the tie break and if the player win the game
  */
 export function getTieBreakScore({
   winningPlayerScore,
@@ -162,7 +162,7 @@ export function isTieBreak(playerSet1: number, playerSet2: number) {
 }
 
 /**
- * Return the new winner sets and if he wins the set
+ * Return the new game score
  */
 export function getGameScore({
   winningPlayer,
@@ -195,7 +195,7 @@ export function getGameScore({
 }
 
 /**
- * Return true id the match is win
+ * Return true if the match is win
  */
 export function isWinningMatch(sets: SetScore[], numberOfSets: NumberOfSets) {
   const numberOfVictory = sets.reduce((acc, cur) => {
@@ -217,7 +217,7 @@ function winSet(winnerSet: number, otherPlayerSet: number) {
 }
 
 /**
- * Returns the otherPlayer index, the winningPlayer and the otherPlayer
+ * Returns the winningPlayer,the otherPlayer and the otherPlayer index
  */
 export function getPlayers(
   winningPlayerIndex: number,

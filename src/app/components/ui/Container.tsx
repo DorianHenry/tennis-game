@@ -5,9 +5,9 @@ type Props = {
   className?: string;
 };
 export function Container({ children, className = '', ...props }: PropsWithChildren<Props>) {
-  const classNameConact = classNames('container', className);
+  className = classNames('container', className);
   return (
-    <div className={classNameConact} {...props}>
+    <div className={className} {...props}>
       {children}
     </div>
   );

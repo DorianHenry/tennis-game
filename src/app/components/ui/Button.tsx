@@ -21,9 +21,9 @@ export function ButtonLink({
   size,
   to
 }: PropsWithChildren<ButtonLinkProps>) {
-  const classNameConact = classNames('btn', `btn--${btnType}`, size && `btn--${size}`);
+  const className = classNames('btn', `btn--${btnType}`, size && `btn--${size}`);
   return (
-    <NavLink to={to} className={classNameConact}>
+    <NavLink to={to} className={className}>
       {children}
     </NavLink>
   );

@@ -7,9 +7,9 @@ type Props = {
   className?: string;
 };
 export function Layout({ children, className = '' }: PropsWithChildren<Props>) {
-  const classNameConact = classNames('page-layout', 'py-page', className);
+  className = classNames('page-layout', 'py-page', className);
   return (
-    <div className={classNameConact}>
+    <div className={className}>
       <header className="page-layout__header">
         <Container>
           <Link to="/">
