@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { NavLink, To } from 'react-router-dom';
 import { classNames } from '../../../functions';
-type ButtonType = 'primary' | 'default' | 'secondary';
+type ButtonType = 'primary' | 'default' | 'secondary' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonLinkProps = {
   btnType?: ButtonType;

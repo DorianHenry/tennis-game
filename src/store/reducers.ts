@@ -48,6 +48,9 @@ export const gamesSlice = createSlice({
       const newGame: Game = getNewGame(player1, player2, numberOfSets, getRandomId());
       state.gameList = [...state.gameList, newGame];
     },
+    removeGame(state, action: PayloadAction<{ gameId: GameId }>) {
+      state.gameList = state.gameList.filter((g) => g.id !== action.payload.gameId);
+    },
     /**
      * Add a point the the match score
      */
@@ -127,6 +130,7 @@ export const gamesSlice = createSlice({
   }
 });
 
-export const { incerementChrono, addGame, addPoint, replaceAllGames } = gamesSlice.actions;
+export const { incerementChrono, addGame, removeGame, addPoint, replaceAllGames } =
+  gamesSlice.actions;
 
 export default gamesSlice.reducer;

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import store from '../store/store';
 import { Game } from '../types';
-import { addGame, addPoint, incerementChrono, replaceAllGames } from '../store';
+import { addGame, addPoint, incerementChrono, removeGame, replaceAllGames } from '../store';
 import { expectedNewSet, expectedNewSetWomen, gameTest } from './store.mock';
 import { GameStatus } from '../functions';
 describe('Game store', () => {
@@ -66,6 +66,15 @@ describe('Game store', () => {
     );
     const updatedGames = store.getState().games.gameList;
     expect(updatedGames[updatedGames.length - 1].players[0].sets.length).toEqual(3);
+  });
+
+  it('should remove a game', () => {
+    games = store.getState().games.gameList;
+    expect(games.length).toBe(2);
+    store.dispatch(removeGame({ gameId: 1 }));
+    games = store.getState().games.gameList;
+    expect(games.length).toBe(1);
+    expect(games[0].id).not.toBe(1);
   });
 
   it('should handle correctly the points', () => {
