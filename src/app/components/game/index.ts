@@ -8,4 +8,4 @@ export * from './GameSet';
 export * from './Labels';
 export * from './Players';
 export * from './WinnerCongratulation';
-export * from './CreateGameForm';
+export * from './GameForm';

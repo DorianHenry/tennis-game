@@ -45,11 +45,6 @@ export function GameDetail({ matchStatus }: Props) {
     <div className="stack-section">
       <header className="text-center stack-text">
         <h1>Détail du match</h1>
-        <div>
-          <Button onClick={handleRemove} btnType="danger">
-            Supprimer le match
-          </Button>
-        </div>
       </header>
       <div className="mw-800 mx-auto w-100">
         <Card classNameBody="stack-text">
@@ -80,10 +75,20 @@ export function GameDetail({ matchStatus }: Props) {
           </aside>
         </div>
       </div>
-      <footer className="text-center">
-        <ButtonLink to={`/`} size="lg" btnType="secondary">
-          Retour aux matchs
-        </ButtonLink>
+      <footer className="flex-between">
+        <div className="flex-inline flex-inline--center">
+          <ButtonLink to={`/edit/${gameId}`} btnType="secondary">
+            Changer le match
+          </ButtonLink>
+          <Button onClick={handleRemove} btnType="danger">
+            Supprimer le match
+          </Button>
+        </div>
+        <div>
+          <ButtonLink to={`/`} btnType="secondary">
+            Retour aux matchs
+          </ButtonLink>
+        </div>
       </footer>
     </div>
   );

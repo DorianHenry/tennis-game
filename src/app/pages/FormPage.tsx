@@ -1,13 +1,13 @@
-import { CreateGameForm } from '../components/game/CreateGameForm';
+import { GameForm } from '../components/game/GameForm';
 import { Container, Layout } from '../components/ui';
 import { useLocalStorage } from '../hooks';
 
-export function CreateGame() {
+export function FormPage() {
   useLocalStorage();
   return (
     <Layout>
       <Container>
-        <CreateGameForm />
+        <GameForm />
       </Container>
     </Layout>
   );

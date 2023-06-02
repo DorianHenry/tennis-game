@@ -1,7 +1,14 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import store from '../store/store';
-import { Game } from '../types';
-import { addGame, addPoint, incerementChrono, removeGame, replaceAllGames } from '../store';
+import { Game, NewPlayer } from '../types';
+import {
+  addGame,
+  updateGame,
+  addPoint,
+  incerementChrono,
+  removeGame,
+  replaceAllGames
+} from '../store';
 import { expectedNewSet, expectedNewSetWomen, gameTest } from './store.mock';
 import { GameStatus } from '../functions';
 describe('Game store', () => {
@@ -66,6 +73,34 @@ describe('Game store', () => {
     );
     const updatedGames = store.getState().games.gameList;
     expect(updatedGames[updatedGames.length - 1].players[0].sets.length).toEqual(3);
+  });
+
+  it('should update a game', () => {
+    games = store.getState().games.gameList;
+    let currentGame = games[0];
+    expect(currentGame.players[0].name).toBe('John');
+    expect(currentGame.players[1].name).toBe('Jason');
+    expect(currentGame.players[0].avatarId).toBe(3);
+
+    const updatePlayer1: NewPlayer = {
+      name: 'Vincent',
+      avatarId: 4
+    };
+
+    const updatePlayer2: NewPlayer = {
+      name: 'Thomas',
+      avatarId: 1
+    };
+
+    store.dispatch(updateGame({ player1: updatePlayer1, player2: updatePlayer2, gameId: 1 }));
+
+    games = store.getState().games.gameList;
+    currentGame = games[0];
+
+    expect(currentGame.players[0].name).toBe('Vincent');
+    expect(currentGame.players[1].name).toBe('Thomas');
+    expect(currentGame.players[0].avatarId).toBe(4);
+    expect(currentGame.players[1].avatarId).toBe(1);
   });
 
   it('should remove a game', () => {

@@ -8,7 +8,7 @@ import { Game } from './app/pages/Game';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import { GameMatchLoader } from './app/loaders/game';
-import { CreateGame } from './app/pages/CreateGame';
+import { FormPage } from './app/pages/FormPage';
 
 const router = createBrowserRouter([
   {
@@ -23,8 +23,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: 'create-game',
-    element: <CreateGame />,
+    path: '/edit',
+    element: <FormPage />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: '/edit/:gameId',
+    element: <FormPage />,
     errorElement: <ErrorPage />
   }
 ]);

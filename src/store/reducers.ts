@@ -48,6 +48,23 @@ export const gamesSlice = createSlice({
       const newGame: Game = getNewGame(player1, player2, numberOfSets, getRandomId());
       state.gameList = [...state.gameList, newGame];
     },
+
+    updateGame(
+      state,
+      action: PayloadAction<{ player1: NewPlayer; player2: NewPlayer; gameId: GameId }>
+    ) {
+      state.gameList = state.gameList.map((g) => {
+        if (g.id !== action.payload.gameId) {
+          return g;
+        }
+        g.players[0].avatarId = action.payload.player1.avatarId;
+        g.players[0].name = action.payload.player1.name;
+
+        g.players[1].avatarId = action.payload.player2.avatarId;
+        g.players[1].name = action.payload.player2.name;
+        return g;
+      });
+    },
     removeGame(state, action: PayloadAction<{ gameId: GameId }>) {
       state.gameList = state.gameList.filter((g) => g.id !== action.payload.gameId);
     },
@@ -130,7 +147,7 @@ export const gamesSlice = createSlice({
   }
 });
 
-export const { incerementChrono, addGame, removeGame, addPoint, replaceAllGames } =
+export const { incerementChrono, addGame, updateGame, removeGame, addPoint, replaceAllGames } =
   gamesSlice.actions;
 
 export default gamesSlice.reducer;

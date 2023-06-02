@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import type { GameId } from '../types';
+import type { Game, GameId } from '../types';
 import { memoize, memoizeWithArgs } from 'proxy-memoize';
 
 const selectGameById = memoizeWithArgs((state: RootState, gameId: GameId) => {
@@ -10,8 +10,16 @@ const selectGameById = memoizeWithArgs((state: RootState, gameId: GameId) => {
   }
   return game;
 });
+const selectPossiblyGameById = memoizeWithArgs((state: RootState, gameId: GameId) => {
+  const game = state.games.gameList.find((g) => g.id === gameId);
+  if (!game) {
+    return null;
+  }
+  return game;
+});
 export const selectGames = (state: RootState) => state.games.gameList;
 export const selectGame = createSelector([selectGameById], (game) => game);
+export const selectPotentialtyGame = createSelector([selectPossiblyGameById], (game) => game);
 export const selectGamesIds = memoize((state: RootState) => state.games.gameList.map((g) => g.id));
 export const selectChrono = createSelector([selectGameById], (game) => game.chrono);
 export const selectMatchStatus = createSelector([selectGameById], (game) => game.status);

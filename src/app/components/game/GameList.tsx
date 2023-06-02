@@ -9,7 +9,7 @@ export function GameListWithStore() {
     <div className="stack-inner">
       <div className="flex-between">
         <h1>Liste des matchs </h1>
-        <ButtonLink to={'/create-game'} btnType="secondary">
+        <ButtonLink to={'/edit'} btnType="secondary">
           Ajouter un match
         </ButtonLink>
       </div>
