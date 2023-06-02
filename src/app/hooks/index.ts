@@ -4,3 +4,4 @@ export * from './useLocalStorage';
 export * from './useModalMatchWin';
 export * from './useAddGame';
 export * from './useIncrementChrono';
+export * from './useRemoveGame';

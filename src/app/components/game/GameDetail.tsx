@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Card, ButtonLink, Modal } from '../ui';
+import { Card, ButtonLink, Modal, Button } from '../ui';
 import { selectMatchStatus } from '../../../store';
 import {
   LabelGameSets,
@@ -11,7 +11,8 @@ import {
 } from './';
 import { GameIdContext } from '../../contexts';
 import { GameStatus } from '../../../functions';
-import { useModalMatchWin, useAppSelector } from '../../hooks';
+import { useModalMatchWin, useAppSelector, useRemoveGame } from '../../hooks';
+import { useContext } from 'react';
 type Props = {
   matchStatus: GameStatus;
 };
@@ -37,11 +38,18 @@ export function GameDetailWithStore() {
 }
 
 export function GameDetail({ matchStatus }: Props) {
+  const gameId = useContext(GameIdContext);
   const isMatchFinish = matchStatus === GameStatus.FINISH;
+  const handleRemove = useRemoveGame({ gameId, returnToGameList: true });
   return (
     <div className="stack-section">
       <header className="text-center stack-text">
         <h1>Détail du match</h1>
+        <div>
+          <Button onClick={handleRemove} btnType="danger">
+            Supprimer le match
+          </Button>
+        </div>
       </header>
       <div className="mw-800 mx-auto w-100">
         <Card classNameBody="stack-text">

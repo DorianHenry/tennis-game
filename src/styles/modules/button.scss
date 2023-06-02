@@ -28,6 +28,13 @@
 
     color: #ffffff;
   }
+  &--danger {
+    background-color: var(--brand-danger);
+
+    border-color: var(--brand-danger);
+
+    color: #ffffff;
+  }
   &--sm {
     padding: .2rem .5rem;
   }
