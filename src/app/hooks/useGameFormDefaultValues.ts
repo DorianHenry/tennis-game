@@ -1,5 +1,5 @@
 import { DefaultValues } from 'react-hook-form';
-import { CreateFormData, avatarMap, getAvatar } from '../../functions';
+import { CreateFormData } from '../../functions';
 import { useAppSelector } from '.';
 import { selectPotentialtyGame } from '../../store';
 import { GameId } from '../../types';

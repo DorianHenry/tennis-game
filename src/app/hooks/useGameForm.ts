@@ -26,9 +26,7 @@ export function useAddGame() {
 export function useEditGame({ gameId }: { gameId: GameId | null }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(gameId);
   const onSubmit: SubmitHandler<CreateFormData> = async ({ players }) => {
-    console.log(gameId);
     if (gameId === null) {
       return;
     }
