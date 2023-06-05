@@ -5,6 +5,6 @@ type Props = {
   className?: string;
 };
 export function FormGroup({ children, className }: PropsWithChildren<Props>) {
-  const classNameConact = classNames('form-group', className);
-  return <div className={classNameConact}>{children}</div>;
+  className = classNames('form-group', className);
+  return <div className={className}>{children}</div>;
 }

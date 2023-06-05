@@ -10,7 +10,7 @@ export function Avatar({ avatarId, type = 'medium' }: Props) {
   const imgSrc = `${getAvatar(avatarId)}`;
   return (
     <div className={`avatar avatar--${type}`}>
-      <img src={imgSrc} alt={`girl ${avatarId}`} />
+      <img src={imgSrc} alt={`player ${avatarId}`} />
     </div>
   );
 }

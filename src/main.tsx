@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Home } from './app/pages/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ErrorPage } from './app/pages/Error/Error';
-import './styles/_index.scss';
-import { Game } from './app/pages/Game';
 import { Provider } from 'react-redux';
-import store from './store/store';
-import { GameMatchLoader } from './app/loaders/game';
+import './styles/_index.scss';
+import { Home } from './app/pages/Home';
+import { Game } from './app/pages/Game';
 import { FormPage } from './app/pages/FormPage';
+import { ErrorPage } from './app/pages/Error/Error';
+import { GameMatchLoader } from './app/loaders/game';
+import store from './store/store';
 
 const router = createBrowserRouter([
   {

@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import type { Game, GameId } from '../types';
+import type { GameId } from '../types';
 import { memoize, memoizeWithArgs } from 'proxy-memoize';
 
 const selectGameById = memoizeWithArgs((state: RootState, gameId: GameId) => {
