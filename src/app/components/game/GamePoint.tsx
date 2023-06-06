@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { getScorePoint } from '../../../functions';
 import { selectIsTieBreak, selectPlayerCurrentPoint } from '../../../store';
 import { useAppSelector } from '../../hooks';
-import { GameIdContext, PlayerIndexContext } from '../../contexts';
+import { GameIdContext, PlayerIndexContext } from '../context/game';
 
 type PropsWithStore = {
   className?: string;

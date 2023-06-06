@@ -3,7 +3,7 @@ import { GameStatus, getStateByNumber } from '../../../functions';
 import { selectMatchStatus, selectNumberOfSets } from '../../../store';
 import { useAppSelector } from '../../hooks';
 import { Label, LabelType } from '../ui';
-import { GameIdContext } from '../../contexts';
+import { GameIdContext } from '../context/game';
 
 export function LabelGameStatus() {
   const gameId = useContext(GameIdContext);

@@ -5,3 +5,4 @@ export * from './useModalMatchWin';
 export * from './useGameForm';
 export * from './useIncrementChrono';
 export * from './useRemoveGame';
+export * from './useConfirm';

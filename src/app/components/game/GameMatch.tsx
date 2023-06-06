@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { GameStatus, classNames } from '../../../functions';
-import { GameIdContext, PlayerIndexContext } from '../../contexts';
+import { GameIdContext, PlayerIndexContext } from '../context/game';
 import { PlayerName, GameSetWithStore, GamePointWithStore } from './';
 import { useAppSelector } from '../../hooks';
 import { selectMatchStatus, selectPlayerHasService } from '../../../store';

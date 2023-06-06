@@ -40,7 +40,6 @@ export function useGameFormDefaultValues({ gameIdParams }: Props): Return {
       avatarId: player.avatarId
     };
   });
-  console.log(players);
   return {
     gameIdN: parseFloat(gameIdParams as string),
     isEdit: true,

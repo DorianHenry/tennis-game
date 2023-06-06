@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useAppSelector } from '../../hooks';
-import { GameIdContext } from '../../contexts';
+import { GameIdContext } from '../context/game';
 import { selectWinner } from '../../../store';
 import { Avatar } from '../ui';
 

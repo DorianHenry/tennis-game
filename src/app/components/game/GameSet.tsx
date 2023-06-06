@@ -3,7 +3,7 @@ import { selectCurrentSet, selectPlayerSets } from '../../../store';
 import { useAppSelector } from '../../hooks';
 import { classNames } from '../../../functions';
 import { useContext } from 'react';
-import { GameIdContext, PlayerIndexContext } from '../../contexts';
+import { GameIdContext, PlayerIndexContext } from '../context/game';
 
 type Props = {
   className?: string;

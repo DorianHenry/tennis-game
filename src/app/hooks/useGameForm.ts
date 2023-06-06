@@ -4,11 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { CreateFormData } from '../../functions';
 import { GameId, NewPlayer } from '../../types';
 import { addGame, updateGame } from '../../store';
+import { useConfirm } from './';
 
 export function useAddGame() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { confirm } = useConfirm();
   const onSubmit: SubmitHandler<CreateFormData> = async ({ players, numberOfSets }) => {
+    if (!(await confirm({ title: 'Voulez-vous créer le match ?' }))) {
+      return;
+    }
     if (!players || players.length !== 2 || !numberOfSets) {
       throw new Error(`Les champs ne sont pas correctement remplis`);
     }
@@ -26,7 +31,11 @@ export function useAddGame() {
 export function useEditGame({ gameId }: { gameId: GameId | null }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { confirm } = useConfirm();
   const onSubmit: SubmitHandler<CreateFormData> = async ({ players }) => {
+    if (!(await confirm({ title: 'Voulez-vous modifier le match ?' }))) {
+      return;
+    }
     if (gameId === null) {
       return;
     }

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { GameIdContext } from '../../contexts';
+import { GameIdContext } from '../context/game';
 import type { GameId } from '../../../types';
 import { Card, ButtonLink } from '../ui';
 import { ChronometerWithStore, LabelGameStatus, PlayersPresentation } from './';

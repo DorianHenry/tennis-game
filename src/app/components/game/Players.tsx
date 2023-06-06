@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Avatar, Button } from '../ui';
 import { selectIsPlayerWinTheMatch, selectPlayerAvatar, selectPlayerName } from '../../../store';
 import { useAddPoint, useAppSelector } from '../../hooks';
-import { GameIdContext, PlayerIndexContext } from '../../contexts';
+import { GameIdContext, PlayerIndexContext } from '../context/game';
 
 type PlayerProps = {
   isInverse?: boolean;

@@ -9,9 +9,9 @@ import {
   PlayersPresentation,
   WinnerCongratulation
 } from './';
-import { GameIdContext } from '../../contexts';
+import { GameIdContext } from '../context/game';
 import { GameStatus } from '../../../functions';
-import { useModalMatchWin, useAppSelector, useRemoveGame } from '../../hooks';
+import { useModalMatchWin, useAppSelector, useRemoveGame, useConfirm } from '../../hooks';
 import { useContext } from 'react';
 type Props = {
   matchStatus: GameStatus;
@@ -40,7 +40,13 @@ export function GameDetailWithStore() {
 export function GameDetail({ matchStatus }: Props) {
   const gameId = useContext(GameIdContext);
   const isMatchFinish = matchStatus === GameStatus.FINISH;
+  const { confirm } = useConfirm();
   const handleRemove = useRemoveGame({ gameId, returnToGameList: true });
+  const handleRemoveConfirm = async () => {
+    if (await confirm({ title: 'Voulez-vous supprimer ce match ?' })) {
+      handleRemove();
+    }
+  };
   return (
     <div className="stack-section">
       <header className="text-center stack-text">
@@ -80,7 +86,7 @@ export function GameDetail({ matchStatus }: Props) {
           <ButtonLink to={`/edit/${gameId}`} btnType="secondary">
             Changer le match
           </ButtonLink>
-          <Button onClick={handleRemove} btnType="danger">
+          <Button onClick={handleRemoveConfirm} btnType="danger">
             Supprimer le match
           </Button>
         </div>

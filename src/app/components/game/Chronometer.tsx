@@ -2,7 +2,7 @@ import { useAppSelector, useIncrementChrono } from '../../hooks';
 import { getTimeWithSeconds, classNames, getLocalTwoNumber } from '../../../functions';
 import { useContext } from 'react';
 import { selectChrono } from '../../../store';
-import { GameIdContext } from '../../contexts';
+import { GameIdContext } from '../context/game';
 
 type Position = 'left' | 'center' | 'right';
 type ChronoPropsStore = {

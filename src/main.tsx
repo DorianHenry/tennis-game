@@ -9,6 +9,7 @@ import { FormPage } from './app/pages/FormPage';
 import { ErrorPage } from './app/pages/Error/Error';
 import { GameMatchLoader } from './app/loaders/game';
 import store from './store/store';
+import { ConfirmContextProvider } from './app/components/context/confirm';
 
 const router = createBrowserRouter([
   {
@@ -36,8 +37,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <ConfirmContextProvider>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+    </ConfirmContextProvider>
   </Provider>
 );
