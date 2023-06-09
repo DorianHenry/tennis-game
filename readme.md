@@ -35,3 +35,11 @@ Installation des dépendences
   yarn test
   pnpm test
 ```
+
+### Lancer le storybook
+
+```bash
+  npm run storybook
+  yarn storybook
+  pnpm storybook
+```
